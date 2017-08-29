@@ -11,6 +11,9 @@
   <description>SOCKS Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-socks.spec</url>
 
+<inceptionYear>2017
+</inceptionYear>
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -42,10 +45,66 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle.config.location>src/conf/checkstyle/configuration.xml</checkstyle.config.location>
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
+
+    <junit.version>4.12</junit.version>
+
+    <k3po.version>3.0.0-alpha-79</k3po.version>
+    <k3po.nukleus.ext.version>0.8.1</k3po.nukleus.ext.version>
+
+    <nukleus.spec.version>0.8</nukleus.spec.version>
+    <nukleus.plugin.version>0.10</nukleus.plugin.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.reaktivity</groupId>
+      <artifactId>nukleus.spec</artifactId>
+      <version>${nukleus.spec.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kaazing</groupId>
+      <artifactId>k3po.junit</artifactId>
+      <version>${k3po.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kaazing</groupId>
+      <artifactId>k3po.lang</artifactId>
+      <version>${k3po.version}</version>
+    </dependency>
+  </dependencies>
+
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/scripts</directory>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>org.reaktivity</groupId>
+        <artifactId>nukleus-maven-plugin</artifactId>
+        <version>${nukleus.plugin.version}</version>
+        <configuration>
+          <scopeNames>core socks</scopeNames>
+          <packageName>org.reaktivity.specification.socks.internal.types</packageName>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
@@ -61,6 +120,10 @@
           <excludes>
             <exclude>src/conf/**</exclude>
           </excludes>
+          <mapping>
+            <idl>SLASHSTAR_STYLE</idl>
+            <rpt>SCRIPT_STYLE</rpt>
+          </mapping>
           <failIfUnknown>true</failIfUnknown>
         </configuration>
         <executions>
@@ -83,6 +146,39 @@
             <phase>validate</phase>
             <goals>
               <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    <plugin>
+        <groupId>org.kaazing</groupId>
+        <artifactId>k3po-maven-plugin</artifactId>
+        <version>${k3po.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>start</goal>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.reaktivity</groupId>
+            <artifactId>k3po-nukleus-ext</artifactId>
+            <version>${k3po.nukleus.ext.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.19.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
@@ -177,3 +273,4 @@
   </profiles>
 
 </project>
+
