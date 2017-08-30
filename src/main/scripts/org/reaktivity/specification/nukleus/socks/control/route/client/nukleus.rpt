@@ -18,6 +18,8 @@ property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010101N ${nukleiRG010101N.controlNew("socks")}
 
+property mode "FORWARD"
+
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlRG010101N.controller)}
@@ -31,7 +33,7 @@ read [0x06] "source"
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read [0x06] "target"
 read ([0..8]:clientConnectRefRG010101N)
-read [0x09] "localhost"
+read ${socks:mode(mode)}
 
 write [0x40 0x00 0x00 0x01]
 write ${correlationIdRG010101N}

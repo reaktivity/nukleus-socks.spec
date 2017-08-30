@@ -16,7 +16,9 @@
 
 property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR020101N ${nukleiUR020101N.controlNew("tls")}
+property controlUR020101N ${nukleiUR020101N.controlNew("socks")}
+
+property mode "FORWARD"
 
 connect await ROUTED_CLIENT
         "agrona://stream/bidirectional"
@@ -32,7 +34,7 @@ read [0x06] "source"
 read ([0..8]:clientAcceptRefUR020101N)
 read [0x06] "target"
 read ([0..8]:clientConnectRefRG010101N)
-read [0x09] "localhost"
+read ${socks:mode(mode)}
 
 write [0x40 0x00 0x00 0x02]
 write ${correlationIdUR020101N}
