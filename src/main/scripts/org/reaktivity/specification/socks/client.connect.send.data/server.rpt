@@ -31,12 +31,24 @@ read [0x05 0x01 0x00]
 ## Read the response, expect success
 write [0x05 0x00]
 
-## Write CONNECT request
-read [0x05 0x01 0x00 0xFE 0x00 0x00 0x00 0x12] "http://example.com" [0x00 0x00 0x00]
+## Read CONNECT request
+read [0x05] # version: SOCKS v5
+read [0x01] # CONNECT command
+read [0x00] # RSV field
+read [0x03] # Address Type domain name
+read [0x0B] # Length of the FQDN
+read "example.com" # The FQDN
+read [0x1F 0x90] # The destination port
 
-## Read CONNECT response
-write [0x05 0x00 0x00 0xFE 0x00 0x00 0x00 0x12] "http://example.com" [0x00 0x00 0x00]
+## Write CONNECT response
+write [0x05] # version: SOCKS v5
+write [0x00] # CONNECT command
+write [0x00] # RSV field
+write [0x03] # Address Type domain name
+write [0x0B] # Length of the FQDN
+write "example.com" # The FQDN
+write [0x1F 0x90] # The destination port
 
+## Application data
 read "hello world"
-
 write "hello client"
