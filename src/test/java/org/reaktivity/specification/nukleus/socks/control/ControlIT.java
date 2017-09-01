@@ -59,11 +59,23 @@ public class ControlIT
     }
 
     @Test
+    @ScriptProperty("mode 'REVERSE'")
     @Specification({
         "route/client/nukleus",
         "route/client/controller"
     })
-    public void shouldRouteClient() throws Exception
+    public void shouldRouteForwardClient() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @ScriptProperty("mode 'REVERSE'")
+    @Specification({
+        "route/client/nukleus",
+        "route/client/controller"
+    })
+    public void shouldRouteReverseClient() throws Exception
     {
         k3po.finish();
     }
