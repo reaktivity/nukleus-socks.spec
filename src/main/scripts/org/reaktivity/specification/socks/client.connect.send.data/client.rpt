@@ -16,7 +16,7 @@
 
 property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-connect await ROUTED_SERVER "nukleus://tls/streams/source"
+connect await ROUTED_SERVER "nukleus://socks/streams/source"
   option nukleus:route ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"

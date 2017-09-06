@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
+import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
@@ -37,6 +38,7 @@ public class NukleusIT
     public final TestRule chain = outerRule(k3po).around(timeout);
 
     @Test
+    @ScriptProperty("serverConnect \"nukleus://socks/streams/source\"")
     @Specification({
         "${scripts}/client.connect.send.data/client",
         "${scripts}/client.connect.send.data/server"})

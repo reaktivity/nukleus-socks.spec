@@ -14,12 +14,13 @@
 # under the License.
 #
 
-property newClientAcceptRef  ${nukleus:newRouteRef()} # external
+property newClientAcceptRef ${nuklei:newReferenceId()}
+property newServerConnectRef ${newClientAcceptRef} # external scope
 
-property clientAccept "nukleus://socks/streams/source"
+property serverConnect "nukleus://target/streams/socks#source"
 
-accept ${clientAccept}
-  option nukleus:route  ${newClientAcceptRef}
+accept ${serverConnect}
+  option nukleus:route  ${newServerConnectRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted

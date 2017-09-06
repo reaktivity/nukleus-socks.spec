@@ -16,9 +16,9 @@
 
 property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-property serverAccept "nukleus://tls/streams/source"
+property serverAccept "nukleus://socks/streams/source"
 
-accept "nukleus://tls/streams/source"
+accept "nukleus://socks/streams/source"
   option nukleus:route  ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
