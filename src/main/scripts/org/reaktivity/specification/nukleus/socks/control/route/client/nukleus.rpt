@@ -34,6 +34,7 @@ read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read [0x06] "target"
 read ([0..8]:clientConnectRefRG010101N)
 read ${socks:mode(mode)}
+read ${socks:destAddrPort(destAddrPort)}
 
 write [0x40 0x00 0x00 0x01]
 write ${correlationIdRG010101N}

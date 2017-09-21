@@ -15,12 +15,15 @@
  */
 package org.reaktivity.specification.socks.internal;
 
+import java.nio.charset.StandardCharsets;
+
 import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.SocksMode;
 import org.reaktivity.specification.socks.internal.types.SocksModeFW;
+import org.reaktivity.specification.socks.internal.types.String16FW;
 
 public final class Functions
 {
@@ -36,6 +39,19 @@ public final class Functions
         byte[] modeBytes = new byte[modeType.sizeof()];
         modeType.buffer().getBytes(0, modeBytes);
         return modeBytes;
+    }
+
+    @Function
+    public static byte[] destAddrPort(String destAddrPort)
+    {
+        MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
+        String16FW dapType = new String16FW.Builder()
+            .wrap(writeBuffer, 0, writeBuffer.capacity())
+            .set(destAddrPort, StandardCharsets.UTF_8)
+            .build();
+        byte[] dapBytes = new byte[dapType.sizeof()];
+        dapType.buffer().getBytes(0, dapBytes);
+        return dapBytes;
     }
 
     public static class Mapper extends FunctionMapperSpi.Reflective

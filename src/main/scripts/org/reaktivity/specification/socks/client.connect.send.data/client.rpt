@@ -28,7 +28,7 @@ write [0x01]
 write [0x00]
 
 ## Read the response, expect success
-read [0x05 0x00]   # AcceptStreamHandler
+read [0x05 0x00]
 
 ## Write CONNECT request
 write [0x05] # version: SOCKS v5
@@ -40,14 +40,13 @@ write "example.com" # The FQDN
 write [0x1F 0x90] # The destination port
 
 ## Read CONNECT response
-read [0x05] # version: SOCKS v5 # AcceptStreamHandler
-read [0x00] # CONNECT command
+read [0x05] # version: SOCKS v5
+read [0x00] # Succeeded
 read [0x00] # RSV field
-read [0x03] # Address Type domain name
-read [0x0B] # Length of the FQDN
-read "example.com" # The FQDN
-read [0x1F 0x90] # The destination port
+read [0x01] # Address Type domain name
+read [0x7F 0x00 0x00 0x01] # The Bound Server Address
+read [0xEA 0xDB]           # The Bound Server Port
 
 ## Application data
 write "hello world"
-read "hello client" # ConnectReplyStreamHandler
+read "hello client"

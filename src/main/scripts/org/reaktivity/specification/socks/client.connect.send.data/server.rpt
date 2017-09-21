@@ -18,8 +18,8 @@ property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
 property serverAccept "nukleus://socks/streams/source"
 
-accept "nukleus://socks/streams/source"
-  option nukleus:route  ${newServerAcceptRef}
+accept ${serverAccept}
+  option nukleus:route ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted
@@ -38,16 +38,15 @@ read [0x00] # RSV field
 read [0x03] # Address Type domain name
 read [0x0B] # Length of the FQDN
 read "example.com" # The FQDN
-read [0x1F 0x90] # The destination port
+read [0x1F 0x90]   # The destination port
 
 ## Write CONNECT response
 write [0x05] # version: SOCKS v5
-write [0x00] # CONNECT command
+write [0x00] # Succeeded
 write [0x00] # RSV field
-write [0x03] # Address Type domain name
-write [0x0B] # Length of the FQDN
-write "example.com" # The FQDN
-write [0x1F 0x90] # The destination port
+write [0x01] # Address Type domain name
+write [0x7F 0x00 0x00 0x01] # The Bound Server Address
+write [0xEA 0xDB]           # The Bound Server Port
 
 ## Application data
 read "hello world"
