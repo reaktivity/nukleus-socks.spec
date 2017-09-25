@@ -17,9 +17,9 @@
 property newClientAcceptRef ${nuklei:newReferenceId()}
 property newServerConnectRef ${newClientAcceptRef} # external scope
 
-property serverConnect "nukleus://target/streams/socks#source"
+property serverAccept "nukleus://target/streams/socks#source"
 
-accept ${serverConnect}
+accept ${serverAccept}
   option nukleus:route  ${newServerConnectRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"

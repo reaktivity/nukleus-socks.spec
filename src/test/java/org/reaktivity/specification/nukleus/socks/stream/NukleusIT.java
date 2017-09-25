@@ -38,7 +38,7 @@ public class NukleusIT
     public final TestRule chain = outerRule(k3po).around(timeout);
 
     @Test
-    @ScriptProperty("serverConnect \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
         "${scripts}/client.connect.send.data/client",
         "${scripts}/client.connect.send.data/server"})

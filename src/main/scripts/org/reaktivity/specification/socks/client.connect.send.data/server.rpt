@@ -14,21 +14,23 @@
 # under the License.
 #
 
-property newServerAcceptRef  ${nukleus:newRouteRef()} # external
+
+property newServerAcceptRef ${nuklei:newReferenceId()}
+property newClientConnectRef ${newServerAcceptRef}
 
 property serverAccept "nukleus://socks/streams/source"
 
 accept ${serverAccept}
-  option nukleus:route ${newServerAcceptRef}
+  option nukleus:route ${newClientConnectRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted
 connected
 
-## Write the request bytes for connecting with no-authentication
+## Read the request bytes for connecting with no-authentication
 read [0x05 0x01 0x00]
 
-## Read the response, expect success
+## Write the response, expect success
 write [0x05 0x00]
 
 ## Read CONNECT request
