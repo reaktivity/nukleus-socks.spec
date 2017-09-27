@@ -19,6 +19,7 @@ property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapa
 property controlUR020101N ${nukleiUR020101N.controlNew("socks")}
 
 property mode "FORWARD"
+property destAddrPort "example.com:8080"
 
 connect await ROUTED_CLIENT
         "agrona://stream/bidirectional"

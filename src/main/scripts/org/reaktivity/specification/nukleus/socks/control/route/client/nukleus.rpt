@@ -19,6 +19,7 @@ property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapa
 property controlRG010101N ${nukleiRG010101N.controlNew("socks")}
 
 property mode "FORWARD"
+property destAddrPort "example.com:8080"
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
