@@ -53,3 +53,8 @@ write [0xEA 0xDB]           # The Bound Server Port
 ## Application data
 read "hello world"
 write "hello client"
+
+## Application data
+read "data flows as intended"
+write "data flows back as intended"
+

@@ -50,3 +50,7 @@ read [0xEA 0xDB]           # The Bound Server Port
 ## Application data
 write "hello world"
 read "hello client"
+
+## Application data
+write "data flows as intended"
+read "data flows back as intended"

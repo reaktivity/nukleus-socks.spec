@@ -27,3 +27,7 @@ connected
 write "hello world"
 
 read "hello client"
+
+write "data flows as intended"
+
+read "data flows back as intended"
