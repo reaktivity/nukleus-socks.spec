@@ -67,7 +67,7 @@ public final class Functions
      * @return A byte array representing the extension ready to be read or written
      */
     @Function
-    public static byte[] beginExtensionIpv4(
+    public static byte[] beginTcpExtensionIpv4(
         byte[] localAddress,
         int localPort,
         byte[] remoteAddress,
@@ -98,7 +98,7 @@ public final class Functions
      * @return
      */
     @Function
-    public static byte[] beginExtensionIpv6(
+    public static byte[] beginTcpExtensionIpv6(
         byte[] localAddress,
         int localPort,
         byte[] remoteAddress,

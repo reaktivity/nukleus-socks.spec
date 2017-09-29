@@ -47,7 +47,6 @@ read [0x01] # Address Type domain name
 read [0x7F 0x00 0x00 0x01] # The Bound Server Address
 read [0xEA 0xDB]           # The Bound Server Port
 
-## Application data
 write "hello world"
 read "hello client"
 
