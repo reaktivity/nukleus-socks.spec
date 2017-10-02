@@ -10,9 +10,7 @@
   <name>SOCKS Nukleus Specification</name>
   <description>SOCKS Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-socks.spec</url>
-
-<inceptionYear>2017
-</inceptionYear>
+  <inceptionYear>2017</inceptionYear>
 
   <licenses>
     <license>
