@@ -25,31 +25,26 @@ connected
 ## Write the request bytes for connecting with no-authentication
 write [0x05]
 write [0x01]
-write [0x00] # no auth required
+write [0x00]
 
 ## Read the response, expect success
 read [0x05 0x00]
 
 ## Write CONNECT request
 write [0x05] # version: SOCKS v5
-write [0x01] # CONNECT command
+write [0x04] # command not recognized
 write [0x00] # RSV field
 write [0x03] # Address Type domain name
 write [0x0B] # Length of the FQDN
 write "example.com" # The FQDN
 write [0x1F 0x90] # The destination port
 
+
 ## Read CONNECT response
 read [0x05] # version: SOCKS v5
-read [0x00] # Succeeded
+read [0x07] # command not supported
 read [0x00] # RSV field
+
 read [0x01] # Address Type domain name
-read [0x7F 0x00 0x00 0x01] # The Bound Server Address
-read [0xEA 0xDB]           # The Bound Server Port
-
-write "hello world"
-read "hello client"
-
-## Application data
-write "data flows as intended"
-read "data flows back as intended"
+read [0x7F 0x00 0x00 0x02] # The Bound Server Address
+read [0xEA 0xDC]           # The Bound Server Port (DB)

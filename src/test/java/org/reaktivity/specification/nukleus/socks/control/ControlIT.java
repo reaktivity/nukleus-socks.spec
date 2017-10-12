@@ -59,7 +59,7 @@ public class ControlIT
     }
 
     @Test
-    @ScriptProperty("mode 'REVERSE'")
+    @ScriptProperty("mode 'REVERSE'") //FORWARD??
     @Specification({
         "route/client/nukleus",
         "route/client/controller"
