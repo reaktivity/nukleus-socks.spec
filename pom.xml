@@ -48,9 +48,9 @@
     <junit.version>4.12</junit.version>
     <k3po.version>3.0.0-alpha-84</k3po.version>
     <k3po.nukleus.ext.version>0.11</k3po.nukleus.ext.version>
-    <nukleus.spec.version>0.8</nukleus.spec.version>
-    <nukleus.plugin.version>0.10</nukleus.plugin.version>
-    <nukleus.tcp.spec.version>0.17</nukleus.tcp.spec.version>
+    <nukleus.spec.version>0.10</nukleus.spec.version>
+    <nukleus.plugin.version>0.13</nukleus.plugin.version>
+    <nukleus.tcp.spec.version>0.21</nukleus.tcp.spec.version>
   </properties>
 
   <dependencies>
