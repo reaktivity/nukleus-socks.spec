@@ -14,8 +14,8 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
-property newClientConnectRef ${nuklei:newReferenceId()} # external scope
+property newClientAcceptRef ${nukleus:newRouteRef()} # external scope
+property newClientConnectRef ${nukleus:newRouteRef()} # external scope
 
 property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
@@ -38,6 +38,7 @@ write [0x06] "source"
 write ${newClientAcceptRef}
 write [0x06] "target"
 write ${newClientConnectRef}
+write 0L
 write ${socks:mode(mode)}
 write ${socks:destAddrPort(destAddrPort)}
 write flush

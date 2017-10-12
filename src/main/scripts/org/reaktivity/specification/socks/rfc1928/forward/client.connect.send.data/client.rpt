@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newServerAcceptRef ${nuklei:newReferenceId()} # external scope
+property newServerAcceptRef ${nukleus:newRouteRef()} # external scope
 
 connect await ROUTED_SERVER "nukleus://socks/streams/source"
   option nukleus:route ${newServerAcceptRef}

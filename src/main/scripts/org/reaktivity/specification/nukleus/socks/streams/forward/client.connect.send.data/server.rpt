@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()}
+property newClientAcceptRef ${nukleus:newRouteRef()}
 property newServerConnectRef ${newClientAcceptRef} # external scope
 
 property serverAccept "nukleus://target/streams/socks#source"

@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
+property newClientAcceptRef ${nukleus:newRouteRef()} # external scope
 
 connect await ROUTED_CLIENT
         "nukleus://socks/streams/source"
