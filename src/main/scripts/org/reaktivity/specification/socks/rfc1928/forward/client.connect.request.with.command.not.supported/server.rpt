@@ -15,7 +15,7 @@
 #
 
 
-property newServerAcceptRef ${nuklei:newReferenceId()}
+property newServerAcceptRef ${nukleus:newRouteRef()}
 property newClientConnectRef ${newServerAcceptRef}
 
 property serverAccept "nukleus://socks/streams/source"
@@ -49,6 +49,6 @@ write [0x07] # Command not supported
 write [0x00] # RSV field
 
 write [0x01] # Address Type domain name
-write [0x7F 0x00 0x00 0x02] # The Bound Server Address
-write [0xEA 0xDC]           # The Bound Server Port
+write [0x00 0x00 0x00 0x00] # The Bound Server Address
+write [0x00 0x00]           # The Bound Server Port
 

@@ -15,7 +15,7 @@
 #
 
 
-property newServerAcceptRef ${nuklei:newReferenceId()}
+property newServerAcceptRef ${nukleus:newRouteRef()}
 property newClientConnectRef ${newServerAcceptRef}
 
 property serverAccept "nukleus://socks/streams/source"
@@ -27,10 +27,10 @@ accept ${serverAccept}
 accepted
 connected
 
-## Read the request bytes for connecting, no authentication required
+## Read the request bytes for connecting
 read [0x05]
-read [0x01]
-read [0x02] # username & password
+read [0x02]
+read [0x00 0x02] # no auth required and username & password
 
 ## Write the response, expect success
 write [0x05 0x00]

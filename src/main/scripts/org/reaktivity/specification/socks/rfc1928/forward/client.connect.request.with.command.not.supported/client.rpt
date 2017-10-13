@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newServerAcceptRef ${nuklei:newReferenceId()} # external scope
+property newServerAcceptRef ${nukleus:newRouteRef()} # external scope
 
 connect await ROUTED_SERVER "nukleus://socks/streams/source"
   option nukleus:route ${newServerAcceptRef}
@@ -46,5 +46,5 @@ read [0x07] # command not supported
 read [0x00] # RSV field
 
 read [0x01] # Address Type domain name
-read [0x7F 0x00 0x00 0x02] # The Bound Server Address
-read [0xEA 0xDC]           # The Bound Server Port (DB)
+read [0x00 0x00 0x00 0x00] # The Bound Server Address
+read [0x00 0x00]           # The Bound Server Port (DB)
