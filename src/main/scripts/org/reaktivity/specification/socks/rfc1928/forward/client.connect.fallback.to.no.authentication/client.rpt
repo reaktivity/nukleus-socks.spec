@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newServerAcceptRef ${nukleus:newRouteRef()} # external scope
+property newServerAcceptRef ${nuklei:newReferenceId()} # external scope
 
 connect await ROUTED_SERVER "nukleus://socks/streams/source"
   option nukleus:route ${newServerAcceptRef}
@@ -22,10 +22,10 @@ connect await ROUTED_SERVER "nukleus://socks/streams/source"
   option nukleus:transmission "duplex"
 connected
 
-## Write the request bytes for connecting with no-authentication
+## Write the request bytes for connecting, no authentication required
 write [0x05]
 write [0x01]
-write [0x00] # no auth required
+write [0x02] # username & password
 
 ## Read the response, expect success
 read [0x05 0x00]
