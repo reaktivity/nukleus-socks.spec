@@ -21,26 +21,11 @@ import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
-import org.reaktivity.specification.socks.internal.types.SocksMode;
-import org.reaktivity.specification.socks.internal.types.SocksModeFW;
 import org.reaktivity.specification.socks.internal.types.String16FW;
 import org.reaktivity.specification.socks.internal.types.stream.TcpBeginExFW;
 
 public final class Functions
 {
-
-    @Function
-    public static byte[] mode(String mode)
-    {
-        MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
-        SocksModeFW modeType = new SocksModeFW.Builder()
-                .wrap(writeBuffer, 0, writeBuffer.capacity())
-                .set(SocksMode.valueOf(mode))
-                .build();
-        byte[] modeBytes = new byte[modeType.sizeof()];
-        modeType.buffer().getBytes(0, modeBytes);
-        return modeBytes;
-    }
 
     @Function
     public static byte[] destAddrPort(String destAddrPort)

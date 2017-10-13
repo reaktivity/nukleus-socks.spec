@@ -21,7 +21,6 @@ property nukleiUR020001C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlUR020001C ${nukleiUR020001C.control("socks")}
 
-property mode "FORWARD"
 property destAddrPort "example.com:8080"
 
 connect await ROUTED_SERVER
@@ -39,7 +38,6 @@ write ${newServerAcceptRef}
 write [0x06] "target"
 write ${newServerConnectRef}
 write 0L
-write ${socks:mode(mode)}
 write ${socks:destAddrPort(destAddrPort)}
 write flush
 

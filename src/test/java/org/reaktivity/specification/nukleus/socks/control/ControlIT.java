@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
-import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
@@ -37,45 +36,21 @@ public class ControlIT
     public final TestRule chain = outerRule(k3po).around(timeout);
 
     @Test
-    @ScriptProperty("mode 'FORWARD'")
     @Specification({
         "route/server/nukleus",
         "route/server/controller"
     })
-    public void shouldRouteForwardServer() throws Exception
+    public void shouldRouteServer() throws Exception
     {
         k3po.finish();
     }
 
     @Test
-    @ScriptProperty("mode 'REVERSE'")
-    @Specification({
-        "route/server/nukleus",
-        "route/server/controller"
-    })
-    public void shouldRouteReverseServer() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @ScriptProperty("mode 'REVERSE'") //FORWARD??
     @Specification({
         "route/client/nukleus",
         "route/client/controller"
     })
-    public void shouldRouteForwardClient() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @ScriptProperty("mode 'REVERSE'")
-    @Specification({
-        "route/client/nukleus",
-        "route/client/controller"
-    })
-    public void shouldRouteReverseClient() throws Exception
+    public void shouldRouteClient() throws Exception
     {
         k3po.finish();
     }

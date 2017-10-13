@@ -18,7 +18,6 @@ property nukleiRG010001N ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010001N ${nukleiRG010001N.controlNew("socks")}
 
-property mode "FORWARD"
 property destAddrPort "example.com:8080"
 
 connect "agrona://stream/bidirectional"
@@ -35,7 +34,6 @@ read 0L
 read [0x06] "target"
 read (long:serverConnectRefRG010001N)
 read [0..8] # authorization
-read ${socks:mode(mode)}
 read ${socks:destAddrPort(destAddrPort)}
 
 write 0x40000001

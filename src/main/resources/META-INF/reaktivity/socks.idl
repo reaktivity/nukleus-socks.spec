@@ -15,17 +15,10 @@
  */
 scope socks
 {
-    enum SocksMode
-    {
-        FORWARD,
-        REVERSE
-    }
-
     scope control
     {
         struct SocksRouteEx
         {
-            socks::SocksMode mode;
             string16 destAddrPort;
         }
     }
