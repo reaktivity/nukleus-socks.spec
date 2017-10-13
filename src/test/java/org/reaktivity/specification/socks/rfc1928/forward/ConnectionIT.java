@@ -46,4 +46,37 @@ public class ConnectionIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${scripts}/client.does.not.connect.no.acceptable.methods/client",
+        "${scripts}/client.does.not.connect.no.acceptable.methods/server"})
+    public void shouldNotEstablishConnectionNoAcceptableMethods() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.connect.fallback.to.no.authentication/client",
+        "${scripts}/client.connect.fallback.to.no.authentication/server"})
+    public void shouldEstablishConnectionFallbackToNoAuthentication() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.connect.request.with.command.not.supported/client",
+        "${scripts}/client.connect.request.with.command.not.supported/server"})
+    public void shouldNotEstablishConnectionCommandNotSupported() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
