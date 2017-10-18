@@ -30,7 +30,7 @@ connected
 ## Read the request bytes for connecting, no authentication required
 read [0x05]
 read [0x01]
-read [0x00] # no auth
+read [0x01] # GSSAPI, not yet supported
 
 ## Write the response, but no acceptable methods for authentication
 write [0x05 0xFF]
