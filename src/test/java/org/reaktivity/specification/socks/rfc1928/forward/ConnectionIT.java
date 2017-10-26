@@ -80,6 +80,16 @@ public class ConnectionIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/client",
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/server"})
+    public void shouldEstablishConnectionWithThrottlingWindow8Padding7() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 
     @Test
     @Specification({

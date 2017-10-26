@@ -73,13 +73,24 @@ public class ConnectionIT
         k3po.finish();
     }
 
-
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
         "${scripts}/client.connect.send.data.throttling.window.1/client",
         "${scripts}/client.connect.send.data.throttling.window.1/server"})
     public void shouldEstablishConnectionWithThrottlingWindow1() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @Specification({
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/client",
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/server"})
+    public void shouldEstablishConnectionWithThrottlingWindow8Padding7() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
