@@ -22,8 +22,8 @@ property serverAccept "nukleus://socks/streams/source"
 
 accept ${serverAccept}
   option nukleus:route ${newClientConnectRef}
-  option nukleus:window 8
-  option nukleus:padding 7
+  option nukleus:window 100
+  option nukleus:padding 17
   option nukleus:transmission "duplex"
 accepted
 connected
