@@ -27,7 +27,7 @@ import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
-public class ConnectionIT
+public class ThrottlingIT
 {
 
     private final K3poRule k3po = new K3poRule()
@@ -41,9 +41,9 @@ public class ConnectionIT
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
-        "${scripts}/client.connect.send.data/client",
-        "${scripts}/client.connect.send.data/server"})
-    public void shouldEstablishConnection() throws Exception
+        "${scripts}/client.connect.send.data.throttling.server.smaller/client",
+        "${scripts}/client.connect.send.data.throttling.server.smaller/server"})
+    public void shouldEstablishConnectionWithThrottlingServerSmaller() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -53,9 +53,9 @@ public class ConnectionIT
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
-        "${scripts}/client.does.not.connect.no.acceptable.methods/client",
-        "${scripts}/client.does.not.connect.no.acceptable.methods/server"})
-    public void shouldNotEstablishConnectionNoAcceptableMethods() throws Exception
+        "${scripts}/client.connect.send.data.throttling.client.smaller/client",
+        "${scripts}/client.connect.send.data.throttling.client.smaller/server"})
+    public void shouldEstablishConnectionWithThrottlingClientSmaller() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -65,9 +65,9 @@ public class ConnectionIT
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
-        "${scripts}/client.connect.fallback.to.no.authentication/client",
-        "${scripts}/client.connect.fallback.to.no.authentication/server"})
-    public void shouldEstablishConnectionFallbackToNoAuthentication() throws Exception
+        "${scripts}/client.connect.send.data.throttling.window.1/client",
+        "${scripts}/client.connect.send.data.throttling.window.1/server"})
+    public void shouldEstablishConnectionWithThrottlingWindow1() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -77,9 +77,9 @@ public class ConnectionIT
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
-        "${scripts}/client.connect.request.with.command.not.supported/client",
-        "${scripts}/client.connect.request.with.command.not.supported/server"})
-    public void shouldNotEstablishConnectionCommandNotSupported() throws Exception
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/client",
+        "${scripts}/client.connect.send.data.throttling.window.8.padding.7/server"})
+    public void shouldEstablishConnectionWithThrottlingWindow8Padding7() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");

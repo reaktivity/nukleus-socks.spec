@@ -103,6 +103,31 @@ public final class Functions
         return tcpBeginExBytes;
     }
 
+    /**
+     * Generates a text by concatenating the pattern: LongText110000000010 and truncating if the length is not multiple of 20.
+     * @param length The length of text to generate
+     * @return
+     */
+    @Function
+    public static String generateLongText(int length)
+    {
+        String pattern = "LongText110000000010";
+        if (length <= pattern.length())
+        {
+            return pattern.substring(0, length);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length / pattern.length(); i++)
+        {
+            sb.append(pattern);
+        }
+        if (length % pattern.length() > 0)
+        {
+            sb.append(pattern.substring(0, length % pattern.length()));
+        }
+        return sb.toString();
+    }
+
     public static class Mapper extends FunctionMapperSpi.Reflective
     {
 
