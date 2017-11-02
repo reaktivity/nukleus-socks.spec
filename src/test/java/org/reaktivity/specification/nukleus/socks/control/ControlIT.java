@@ -79,6 +79,4 @@ public class ControlIT
         k3po.finish();
     }
 
-    // TODO add tests for destAddrPort
-
 }

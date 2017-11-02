@@ -15,11 +15,19 @@
  */
 scope socks
 {
+    union SocksAddress switch (uint8)
+    {
+        case 1: octets[4] ipv4Address;
+        case 3: string domainName;
+        case 4: octets[16] ipv6Address;
+    }
+
     scope control
     {
         struct SocksRouteEx
         {
-            string16 destAddrPort;
+            socks::SocksAddress socksAddress;
+            uint16 socksPort;
         }
     }
 }
