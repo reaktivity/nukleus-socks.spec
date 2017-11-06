@@ -41,30 +41,6 @@ public class ThrottlingIT
     @Test
     @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
     @Specification({
-        "${scripts}/client.connect.send.data.throttling.server.smaller/client",
-        "${scripts}/client.connect.send.data.throttling.server.smaller/server"})
-    public void shouldEstablishConnectionWithThrottlingServerSmaller() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
-    @Specification({
-        "${scripts}/client.connect.send.data.throttling.client.smaller/client",
-        "${scripts}/client.connect.send.data.throttling.client.smaller/server"})
-    public void shouldEstablishConnectionWithThrottlingClientSmaller() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
-    @Specification({
         "${scripts}/client.connect.send.data.throttling.window.1/client",
         "${scripts}/client.connect.send.data.throttling.window.1/server"})
     public void shouldEstablishConnectionWithThrottlingWindow1() throws Exception
