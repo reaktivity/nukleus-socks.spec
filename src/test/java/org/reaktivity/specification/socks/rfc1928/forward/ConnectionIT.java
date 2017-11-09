@@ -39,9 +39,31 @@ public class ConnectionIT
 
     @Test
     @Specification({
-        "${scripts}/client.connect.send.data/client",
-        "${scripts}/client.connect.send.data/server"})
-    public void shouldEstablishConnection() throws Exception
+        "${scripts}/client.connect.send.data/domain/client",
+        "${scripts}/client.connect.send.data/domain/server"})
+    public void shouldEstablishConnectionDomain() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.connect.send.data/ipv4/client",
+        "${scripts}/client.connect.send.data/ipv4/server"})
+    public void shouldEstablishConnectionIpv4() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.connect.send.data/ipv6/client",
+        "${scripts}/client.connect.send.data/ipv6/server"})
+    public void shouldEstablishConnectionIpv6() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");

@@ -27,10 +27,8 @@ accept ${serverAccept}
 accepted
 connected
 
-## Read the request bytes for connecting
-read [0x05]
-read [0x02]
-read [0x00 0x02] # no auth required and username & password
+## Read the request bytes for connecting with no-authentication
+read [0x05 0x01 0x00]
 
 ## Write the response, expect success
 write [0x05 0x00]
@@ -39,9 +37,7 @@ write [0x05 0x00]
 read [0x05] # version: SOCKS v5
 read [0x01] # CONNECT command
 read [0x00] # RSV field
-read [0x03] # Address Type domain name
-read [0x0B] # Length of the FQDN
-read "example.com" # The FQDN
+read [0x01 0x7f 0x00 0x00 0x01] #IPv4 127.0.0.1
 read short 8080   # The destination port
 
 ## Write CONNECT response
@@ -59,3 +55,4 @@ write "hello client"
 ## Application data
 read "data flows as intended"
 write "data flows back as intended"
+

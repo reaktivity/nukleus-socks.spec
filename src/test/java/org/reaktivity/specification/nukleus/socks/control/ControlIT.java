@@ -37,30 +37,70 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/server/nukleus",
-        "route/server/controller"
+        "route/server/domain/nukleus",
+        "route/server/domain/controller"
     })
-    public void shouldRouteServer() throws Exception
+    public void shouldRouteServerDomain() throws Exception
     {
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "route/client/nukleus",
-        "route/client/controller"
+        "route/server/ipv4/nukleus",
+        "route/server/ipv4/controller"
     })
-    public void shouldRouteClient() throws Exception
+    public void shouldRouteServerIpv4() throws Exception
     {
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "unroute/server/nukleus",
-        "unroute/server/controller"
+        "route/server/ipv6/nukleus",
+        "route/server/ipv6/controller"
     })
-    public void shouldUnrouteServer() throws Exception
+    public void shouldRouteServerIpv6() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route/client/domain/nukleus",
+        "route/client/domain/controller"
+    })
+    public void shouldRouteClientDomain() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route/client/ipv4/nukleus",
+        "route/client/ipv4/controller"
+    })
+    public void shouldRouteClientIpv4() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route/client/ipv6/nukleus",
+        "route/client/ipv6/controller"
+    })
+    public void shouldRouteClientIpv6() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute/server/domain/nukleus",
+        "unroute/server/domain/controller"
+    })
+    public void shouldUnrouteServerDomain() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
@@ -69,14 +109,61 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/client/nukleus",
-        "unroute/client/controller"
+        "unroute/server/ipv4/nukleus",
+        "unroute/server/ipv4/controller"
     })
-    public void shouldUnrouteClient() throws Exception
+    public void shouldUnrouteServerIpv4() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute/server/ipv6/nukleus",
+        "unroute/server/ipv6/controller"
+    })
+    public void shouldUnrouteServerIpv6() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute/client/domain/nukleus",
+        "unroute/client/domain/controller"
+    })
+    public void shouldUnrouteClientDomain() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "unroute/client/ipv4/nukleus",
+        "unroute/client/ipv4/controller"
+    })
+    public void shouldUnrouteClientIpv4() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute/client/ipv6/nukleus",
+        "unroute/client/ipv6/controller"
+    })
+    public void shouldUnrouteClientIpv6() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 }

@@ -34,8 +34,8 @@ write 0L
 write [0x06] "target"
 write ${newClientConnectRef}
 write 0L # authorization
-write [0x03 0x0b] "example.com"
-write [0x1F 0x90]
+write [0x01 0x7f 0x00 0x00 0x01]
+write short 8080
 write flush
 
 read 0x40000001

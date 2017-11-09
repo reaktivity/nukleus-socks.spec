@@ -40,7 +40,7 @@ read [0x00] # RSV field
 read [0x03] # Address Type domain name
 read [0x0B] # Length of the FQDN
 read "example.com" # The FQDN
-read [0x1F 0x90]   # The destination port
+read short 8080   # The destination port
 
 ## Write CONNECT response
 write [0x05] # version: SOCKS v5

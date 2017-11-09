@@ -33,8 +33,8 @@ read (long:clientAcceptRefUR020101N)
 read [0x06] "target"
 read (long:clientConnectRefRG010101N)
 read [0..8]
-read [0x03 0x0b] "example.com"
-read [0x1F 0x90]
+read [0x01 0x7f 0x00 0x00 0x01]
+read short 8080
 
 write 0x40000002
 write ${correlationIdUR020101N}
