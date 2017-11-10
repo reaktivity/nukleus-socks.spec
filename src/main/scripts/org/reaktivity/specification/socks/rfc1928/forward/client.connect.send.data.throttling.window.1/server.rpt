@@ -40,15 +40,15 @@ read [0x00] # RSV field
 read [0x03] # Address Type domain name
 read [0x0B] # Length of the FQDN
 read "example.com" # The FQDN
-read short 8080   # The destination port
+read [0x1F 0x90]   # 8080 in network-byte order
 
 ## Write CONNECT response
 write [0x05] # version: SOCKS v5
 write [0x00] # Succeeded
 write [0x00] # RSV field
 write [0x01] # Address Type domain name
-write [0x7F 0x00 0x00 0x01] # The Bound Server Address
-write [0xEA 0xDB]           # The Bound Server Port
+write [0x00 0x00 0x00 0x00] # The Bound Server Address
+write [0x00 0x00]           # The Bound Server Port
 
 ## Application data
 read "hello world"

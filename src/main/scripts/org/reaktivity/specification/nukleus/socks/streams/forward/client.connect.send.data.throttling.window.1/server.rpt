@@ -19,20 +19,11 @@ property newServerConnectRef ${newClientAcceptRef} # external scope
 
 property serverAccept "nukleus://target/streams/socks#source"
 
-# Build the TcpBeginExFW using hardcoded values
-property serverLocalAddress [0x7F 0x00 0x00 0x01]
-property serverLocalPort 60123
-property serverRemoteAddress [0x7F 0x00 0x00 0x01]
-property serverRemotePort 8080
-
 accept ${serverAccept}
   option nukleus:route  ${newServerConnectRef}
   option nukleus:window 1
   option nukleus:transmission "duplex"
 accepted
-
-# Server forward mode DOES enforce target Nukleus to be TCP by sending the TcpBeginExFW
-write nukleus:begin.ext ${socks:beginTcpExtensionIpv4(serverLocalAddress, serverLocalPort, serverRemoteAddress, serverRemotePort)}
 
 connected
 

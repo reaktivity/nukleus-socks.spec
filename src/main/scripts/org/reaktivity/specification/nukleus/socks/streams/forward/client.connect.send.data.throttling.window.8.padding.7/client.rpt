@@ -23,8 +23,6 @@ connect await ROUTED_CLIENT
   option nukleus:padding 7
   option nukleus:transmission "duplex"
 
-# Client forward mode DOES NOT enforce target Nukleus to be TCP
-# Not expecting a TcpBeginExFW
 connected
 
 ## Application data
