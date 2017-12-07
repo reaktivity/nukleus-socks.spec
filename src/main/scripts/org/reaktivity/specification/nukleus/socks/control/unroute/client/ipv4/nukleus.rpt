@@ -22,6 +22,7 @@ connect await ROUTED_CLIENT
         "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlUR020101N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlUR020101N.controller)}
+        option nukleus:byteorder "network"
 
 connected
 
@@ -34,7 +35,7 @@ read [0x06] "target"
 read (long:clientConnectRefRG010101N)
 read [0..8]
 read [0x01 0x7f 0x00 0x00 0x01]
-read [0x1F 0x90] # 8080 in network-byte order
+read short 8080 # 8080 in network-byte order
 
 write 0x40000002
 write ${correlationIdUR020101N}

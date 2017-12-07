@@ -133,6 +133,17 @@ public class ControlIT
 
     @Test
     @Specification({
+        "unroute/server/fails.unknown.route/nukleus",
+        "unroute/server/fails.unknown.route/controller"
+    })
+    public void shouldUnrouteServerUnknownRoute() throws Exception
+    {
+        k3po.start();
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "unroute/client/domain/nukleus",
         "unroute/client/domain/controller"
     })
@@ -164,6 +175,17 @@ public class ControlIT
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute/client/fails.unknown.route/nukleus",
+        "unroute/client/fails.unknown.route/controller"
+    })
+    public void shouldUnrouteClientUnknownRoute() throws Exception
+    {
+        k3po.start();
         k3po.finish();
     }
 }

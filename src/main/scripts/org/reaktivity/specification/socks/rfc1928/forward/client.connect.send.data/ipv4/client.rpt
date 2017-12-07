@@ -35,7 +35,7 @@ write [0x05] # version: SOCKS v5
 write [0x01] # CONNECT command
 write [0x00] # RSV field
 write [0x01 0x7f 0x00 0x00 0x01] #IPv4 127.0.0.1
-write [0x1F 0x90] # 8080 in network-byte order
+write short 8080 # 8080 in network-byte order
 
 ## Read CONNECT response
 read [0x05] # version: SOCKS v5

@@ -14,31 +14,30 @@
 # under the License.
 #
 
-property nukleiUR020001N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR020001N ${nukleiUR020001N.controlNew("socks")}
+property controlUR020101N ${nukleiUR020101N.controlNew("socks")}
 
-connect await ROUTED_SERVER
-        "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlUR020001N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlUR020001N.controller)}
+connect "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:manyToOneReader(controlUR020101N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlUR020101N.controller)}
         option nukleus:byteorder "network"
 
 connected
 
 read 0x00000002
-read (long:correlationIdUR020001N)
-read [0x00]
+read (long:correlationIdUR020101N)
+read [0x01]
 read [0x06] "source"
-read (long:serverAcceptRefRG010001N)
+read (long:clientAcceptRefUR020101N)
 read [0x06] "target"
-read (long:serverConnectRefRG010001N)
+read (long:clientConnectRefRG010101N)
 read [0..8]
-read [0x01 0x7f 0x00 0x00 0x01]
+read [0x03 0x0b] "example.com"
 read short 8080 # 8080 in network-byte order
 
-write 0x40000002
-write ${correlationIdUR020001N}
+write 0x40000000
+write ${correlationIdUR020101N}
 write flush
 
 close

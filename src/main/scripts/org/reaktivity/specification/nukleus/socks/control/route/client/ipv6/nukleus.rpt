@@ -21,6 +21,7 @@ property controlRG010101N ${nukleiRG010101N.controlNew("socks")}
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlRG010101N.controller)}
+        option nukleus:byteorder "network"
 
 connected
 
@@ -33,7 +34,7 @@ read [0x06] "target"
 read (long:clientConnectRefRG010101N)
 read [0..8] # authorization
 read [0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x01] #::1
-read [0x1F 0x90] # 8080 in network-byte order
+read short 8080 # 8080 in network-byte order
 
 write 0x40000001
 write ${correlationIdRG010101N}
