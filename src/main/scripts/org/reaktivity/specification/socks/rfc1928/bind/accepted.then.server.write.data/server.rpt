@@ -1,0 +1,58 @@
+#
+# Copyright 2016-2017 The Reaktivity Project
+#
+# The Reaktivity Project licenses this file to you under the Apache License,
+# version 2.0 (the "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at:
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
+
+property newServerAcceptRef ${nukleus:newRouteRef()}
+property newClientConnectRef ${newServerAcceptRef}
+
+property serverAccept "nukleus://socks/streams/source"
+
+accept ${serverAccept}
+  option nukleus:route ${newClientConnectRef}
+  option nukleus:window 65536
+  option nukleus:transmission "duplex"
+  option nukleus:byteorder "network"
+accepted
+connected
+
+read [0x05]                 # version
+     [0x01 0x00]            # methods [no-auth]
+
+write [0x05]                # version
+      [0x00]                # method (no-auth)
+
+read [0x05]                 # version
+     [0x02]                 # bind command
+     [0x00]                 # reserved
+     [0x03]                 # domain address type
+     [0x0b] "example.com"
+     short 8080             # port
+
+write [0x05]                # version
+      [0x00]                # succeeded
+      [0x00]                # reserved
+      [0x01]                # IPv4 address type
+      [0xc6 0xa8 0x00 0x01] # assigned address
+      short 32767           # assigned port
+
+write [0x05]                # version
+      [0x00]                # succeeded
+      [0x00]                # reserved
+      [0x01]                # IPv4 address type
+      [0xc6 0xa8 0x00 0x64] # remote address
+      short 32545           # remote port
+
+write "hello client"

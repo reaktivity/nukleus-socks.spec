@@ -15,19 +15,28 @@
  */
 scope socks
 {
-    union SocksAddress switch (uint8)
-    {
-        case 1: octets[4] ipv4Address;
-        case 3: string domainName;
-        case 4: octets[16] ipv6Address;
-    }
-
     scope control
     {
+        enum SocksMode
+        {
+            FORWARD,
+            REVERSE
+        }
+
         struct SocksRouteEx
         {
-            socks::SocksAddress socksAddress;
-            uint16 socksPort;
+            socks::control::SocksMode mode;
+            string address;
+            uint16 port;
+        }
+    }
+
+    scope stream
+    {
+        struct SocksBeginEx
+        {
+            string address;
+            uint16 port;
         }
     }
 }
