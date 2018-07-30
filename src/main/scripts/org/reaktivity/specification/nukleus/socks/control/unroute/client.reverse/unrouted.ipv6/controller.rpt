@@ -21,7 +21,7 @@ property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlUR020101C ${nukleiUR020101C.control("socks")}
 
-connect await ROUTED_CLIENT
+connect await ROUTED_CLIENT_REVERSE
         "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlUR020101C.controller)}
         option agrona:writer ${agrona:manyToOneWriter(controlUR020101C.nukleus)}
@@ -30,13 +30,12 @@ connected
 
 write 0x00000002
 write ${controlUR020101C.nextCorrelationId()}
-write [0x01]
+write [0x04]
 write ${core:string("source")}
 write 0L
 write ${core:string("target")}
 write ${newClientConnectRef}
 write 0L
-write [0x01]
 write ${core:string("fd12:3456:789a:1::c6a8:1")}
 write short 8080
 write flush

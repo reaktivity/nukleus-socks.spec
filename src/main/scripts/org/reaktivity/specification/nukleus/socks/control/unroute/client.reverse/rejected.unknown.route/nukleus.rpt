@@ -26,13 +26,12 @@ connected
 
 read 0x00000002
 read (long:correlationIdUR020101N)
-read [0x01]
+read [0x04]
 read ${core:string("source")}
 read (long:clientAcceptRefUR020101N)
 read ${core:string("target")}
 read (long:clientConnectRefRG010101N)
 read [0..8]
-read [0x01]
 read ${core:string("example.com")}
 read short 8080
 

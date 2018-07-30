@@ -14,8 +14,6 @@
 # under the License.
 #
 
-property newClientConnectRef ${nukleus:newRouteRef()} # external scope
-
 property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
 property controlRG010101C ${nukleiRG010101C.control("socks")}
@@ -28,13 +26,12 @@ connected
 
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
-write [0x01]
+write [0x04]
 write ${core:string("source")}
 write 0L
 write ${core:string("target")}
-write ${newClientConnectRef}
 write 0L
-write [0x01]
+write 0L
 write ${core:string("example.com")}
 write short 8080
 write flush
@@ -42,8 +39,9 @@ write flush
 read 0x40000001
 read ${controlRG010101C.correlationId()}
 read (long:newClientAcceptRef)
+read (long:newClientConnectRef)
 
-read notify ROUTED_CLIENT
+read notify ROUTED_CLIENT_REVERSE
 
 close
 closed

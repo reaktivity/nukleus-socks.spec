@@ -43,7 +43,7 @@ public class BindIT
     public void shouldAcceptDomain() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -54,7 +54,7 @@ public class BindIT
     public void shouldAcceptIPv4() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -65,7 +65,7 @@ public class BindIT
     public void shouldAcceptIPv6() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -76,7 +76,7 @@ public class BindIT
     public void shouldAcceptThenClientAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -87,7 +87,7 @@ public class BindIT
     public void shouldAcceptThenClientCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -98,7 +98,7 @@ public class BindIT
     public void shouldAcceptThenClientResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -109,7 +109,7 @@ public class BindIT
     public void shouldAcceptThenClientWritesData() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -120,7 +120,7 @@ public class BindIT
     public void shouldAcceptThenServerAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -131,7 +131,7 @@ public class BindIT
     public void shouldAcceptThenServerCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -142,7 +142,7 @@ public class BindIT
     public void shouldAcceptThenServerResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -153,7 +153,7 @@ public class BindIT
     public void shouldAcceptThenServerWritesData() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -164,7 +164,7 @@ public class BindIT
     public void shouldBindDomain() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -175,7 +175,7 @@ public class BindIT
     public void shouldBindIPv4() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -186,7 +186,7 @@ public class BindIT
     public void shouldBindIPv6() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -197,7 +197,7 @@ public class BindIT
     public void shouldBindThenClientAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -208,7 +208,7 @@ public class BindIT
     public void shouldBindThenClientCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -219,7 +219,7 @@ public class BindIT
     public void shouldBindThenClientResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -230,7 +230,7 @@ public class BindIT
     public void shouldBindThenServerAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -241,7 +241,7 @@ public class BindIT
     public void shouldBindThenServerCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -252,7 +252,7 @@ public class BindIT
     public void shouldBindThenServerResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -263,7 +263,7 @@ public class BindIT
     public void shouldRejectWithAddressTypeNotSupported() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 }

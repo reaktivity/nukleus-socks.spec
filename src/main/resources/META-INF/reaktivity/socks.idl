@@ -17,15 +17,8 @@ scope socks
 {
     scope control
     {
-        enum SocksMode
-        {
-            FORWARD,
-            REVERSE
-        }
-
         struct SocksRouteEx
         {
-            socks::control::SocksMode mode;
             string address;
             uint16 port;
         }

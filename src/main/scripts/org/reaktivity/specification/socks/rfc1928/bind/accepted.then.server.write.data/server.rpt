@@ -15,8 +15,7 @@
 #
 
 
-property newServerAcceptRef ${nukleus:newRouteRef()}
-property newClientConnectRef ${newServerAcceptRef}
+property newClientConnectRef ${nukleus:newRouteRef()} # external scope
 
 property serverAccept "nukleus://socks/streams/source"
 

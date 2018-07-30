@@ -33,7 +33,6 @@ read (long:serverAcceptRefUR020001N)
 read ${core:string("target")}
 read (long:serverConnectRefUR020001N)
 read [0..8]
-read [0x00]
 read ${core:string("192.168.0.1")}
 read short 8080
 

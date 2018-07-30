@@ -26,19 +26,18 @@ connected
 
 read 0x00000001
 read (long:correlationIdRG010001N)
-read [0x00]
+read [0x03]
 read ${core:string("source")}
-read 0L
+read (long:serverAcceptRefRG010001N)
 read ${core:string("target")}
 read (long:serverConnectRefRG010001N)
 read [0..8]
-read [0x01]
 read ${core:string("example.com")}
 read short 8080
 
 write 0x40000001
 write ${correlationIdRG010001N}
-write ${nukleus:newRouteRef()}
+write ${serverAcceptRefRG010001N}
 write flush
 
 close

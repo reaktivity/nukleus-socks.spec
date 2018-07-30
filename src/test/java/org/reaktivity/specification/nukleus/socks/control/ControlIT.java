@@ -257,7 +257,7 @@ public class ControlIT
     public void shouldUnrouteReverseServerWithDomainAddress() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
         k3po.finish();
     }
 
@@ -269,7 +269,7 @@ public class ControlIT
     public void shouldUnrouteReverseServerWithIPv4Address() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
         k3po.finish();
     }
 
@@ -281,7 +281,7 @@ public class ControlIT
     public void shouldUnrouteReverseServerWithIPv6Address() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
         k3po.finish();
     }
 
@@ -304,7 +304,7 @@ public class ControlIT
     public void shouldUnrouteReverseClientWithDomainAddress() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -316,7 +316,7 @@ public class ControlIT
     public void shouldUnrouteReverseClientWithIPv4Address() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -328,7 +328,7 @@ public class ControlIT
     public void shouldUnrouteReverseClientWithIPv6Address() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 

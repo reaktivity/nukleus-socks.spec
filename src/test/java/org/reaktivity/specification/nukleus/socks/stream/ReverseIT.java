@@ -45,7 +45,7 @@ public class ReverseIT
     public void shouldConnectDomain() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -57,7 +57,7 @@ public class ReverseIT
     public void shouldConnectIPv4() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -69,7 +69,7 @@ public class ReverseIT
     public void shouldConnectIPv6() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -81,7 +81,7 @@ public class ReverseIT
     public void shouldConnectThenClientAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -93,7 +93,7 @@ public class ReverseIT
     public void shouldConnectThenClientCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -105,7 +105,7 @@ public class ReverseIT
     public void shouldConnectThenClientResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -117,7 +117,7 @@ public class ReverseIT
     public void shouldConnectThenClientWritesData() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -129,7 +129,7 @@ public class ReverseIT
     public void shouldConnectThenServerAborts() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -141,7 +141,7 @@ public class ReverseIT
     public void shouldConnectThenServerCloses() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -153,7 +153,7 @@ public class ReverseIT
     public void shouldConnectThenServerResets() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 
@@ -165,7 +165,7 @@ public class ReverseIT
     public void shouldConnectThenServerWritesData() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
         k3po.finish();
     }
 }

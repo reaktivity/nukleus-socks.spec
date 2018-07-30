@@ -18,7 +18,7 @@ property nukleiUR020101N ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlUR020101N ${nukleiUR020101N.controlNew("socks")}
 
-connect await ROUTED_CLIENT
+connect await ROUTED_CLIENT_REVERSE
         "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlUR020101N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlUR020101N.controller)}
@@ -27,13 +27,12 @@ connected
 
 read 0x00000002
 read (long:correlationIdUR020101N)
-read [0x01]
+read [0x04]
 read ${core:string("source")}
 read (long:clientAcceptRefUR020101N)
 read ${core:string("target")}
 read (long:clientConnectRefRG010101N)
 read [0..8]
-read [0x01]
 read ${core:string("example.com")}
 read short 8080
 

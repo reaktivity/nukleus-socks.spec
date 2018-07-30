@@ -16,7 +16,7 @@
 
 property newClientAcceptRef ${nukleus:newRouteRef()} # external scope
 
-connect await ROUTED_CLIENT
+connect await ROUTED_CLIENT_REVERSE
         "nukleus://socks/streams/source"
   option nukleus:route ${newClientAcceptRef}
   option nukleus:window 65536
