@@ -41,7 +41,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.domain/client",
         "${scripts}/accepted.domain/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectDomain() throws Exception
     {
         k3po.start();
@@ -53,7 +53,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.ipv4/client",
         "${scripts}/accepted.ipv4/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectIPv4() throws Exception
     {
         k3po.start();
@@ -65,7 +65,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.ipv6/client",
         "${scripts}/accepted.ipv6/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectIPv6() throws Exception
     {
         k3po.start();
@@ -77,7 +77,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.client.abort/client",
         "${scripts}/accepted.then.client.abort/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenClientAborts() throws Exception
     {
         k3po.start();
@@ -89,7 +89,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.client.close/client",
         "${scripts}/accepted.then.client.close/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenClientCloses() throws Exception
     {
         k3po.start();
@@ -101,7 +101,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.client.reset/client",
         "${scripts}/accepted.then.client.reset/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenClientResets() throws Exception
     {
         k3po.start();
@@ -113,7 +113,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.client.write.data/client",
         "${scripts}/accepted.then.client.write.data/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenClientWritesData() throws Exception
     {
         k3po.start();
@@ -125,7 +125,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.server.abort/client",
         "${scripts}/accepted.then.server.abort/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenServerAborts() throws Exception
     {
         k3po.start();
@@ -137,7 +137,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.server.close/client",
         "${scripts}/accepted.then.server.close/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenServerCloses() throws Exception
     {
         k3po.start();
@@ -149,7 +149,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.server.reset/client",
         "${scripts}/accepted.then.server.reset/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenServerResets() throws Exception
     {
         k3po.start();
@@ -161,7 +161,7 @@ public class ReverseIT
     @Specification({
         "${scripts}/accepted.then.server.write.data/client",
         "${scripts}/accepted.then.server.write.data/server"})
-    @ScriptProperty("serverAccept \"nukleus://socks/streams/source\"")
+    @ScriptProperty("serverAccept \"nukleus://streams/socks#0\"")
     public void shouldConnectThenServerWritesData() throws Exception
     {
         k3po.start();

@@ -157,10 +157,10 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/server/unrouted.domain/nukleus",
-        "unroute/server/unrouted.domain/controller"
+        "unroute/server/nukleus",
+        "unroute/server/controller"
     })
-    public void shouldUnrouteServerWithDomainAddress() throws Exception
+    public void shouldUnrouteServer() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
@@ -169,34 +169,10 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/server/unrouted.ipv4/nukleus",
-        "unroute/server/unrouted.ipv4/controller"
+        "unroute/unknown/nukleus",
+        "unroute/unknown/controller"
     })
-    public void shouldUnrouteServerWithIPv4Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server/unrouted.ipv6/nukleus",
-        "unroute/server/unrouted.ipv6/controller"
-    })
-    public void shouldUnrouteServerWithIPv6Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server/rejected.unknown.route/nukleus",
-        "unroute/server/rejected.unknown.route/controller"
-    })
-    public void shouldNotUnrouteServerWithUnknownRoute() throws Exception
+    public void shouldNotUnrouteUnknown() throws Exception
     {
         k3po.start();
         k3po.finish();
@@ -204,10 +180,10 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/client/unrouted.domain/nukleus",
-        "unroute/client/unrouted.domain/controller"
+        "unroute/client/nukleus",
+        "unroute/client/controller"
     })
-    public void shouldUnrouteClientWithDomainAddress() throws Exception
+    public void shouldUnrouteClient() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -216,45 +192,10 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/client/unrouted.ipv4/nukleus",
-        "unroute/client/unrouted.ipv4/controller"
+        "unroute/server.reverse/nukleus",
+        "unroute/server.reverse/controller"
     })
-    public void shouldUnrouteClientWithIPv4Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client/unrouted.ipv6/nukleus",
-        "unroute/client/unrouted.ipv6/controller"
-    })
-    public void shouldUnrouteClientWithIPv6Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client/rejected.unknown.route/nukleus",
-        "unroute/client/rejected.unknown.route/controller"
-    })
-    public void shouldNotUnrouteClientWithUnknownRoute() throws Exception
-    {
-        k3po.start();
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server.reverse/unrouted.domain/nukleus",
-        "unroute/server.reverse/unrouted.domain/controller"
-    })
-    public void shouldUnrouteReverseServerWithDomainAddress() throws Exception
+    public void shouldUnrouteReverseServer() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
@@ -263,83 +204,13 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/server.reverse/unrouted.ipv4/nukleus",
-        "unroute/server.reverse/unrouted.ipv4/controller"
+        "unroute/client.reverse/nukleus",
+        "unroute/client.reverse/controller"
     })
-    public void shouldUnrouteReverseServerWithIPv4Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server.reverse/unrouted.ipv6/nukleus",
-        "unroute/server.reverse/unrouted.ipv6/controller"
-    })
-    public void shouldUnrouteReverseServerWithIPv6Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER_REVERSE");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server.reverse/rejected.unknown.route/nukleus",
-        "unroute/server.reverse/rejected.unknown.route/controller"
-    })
-    public void shouldNotUnrouteReverseServerWithUnknownRoute() throws Exception
-    {
-        k3po.start();
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client.reverse/unrouted.domain/nukleus",
-        "unroute/client.reverse/unrouted.domain/controller"
-    })
-    public void shouldUnrouteReverseClientWithDomainAddress() throws Exception
+    public void shouldUnrouteReverseClient() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client.reverse/unrouted.ipv4/nukleus",
-        "unroute/client.reverse/unrouted.ipv4/controller"
-    })
-    public void shouldUnrouteReverseClientWithIPv4Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client.reverse/unrouted.ipv6/nukleus",
-        "unroute/client.reverse/unrouted.ipv6/controller"
-    })
-    public void shouldUnrouteReverseClientWithIPv6Address() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT_REVERSE");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client.reverse/rejected.unknown.route/nukleus",
-        "unroute/client.reverse/rejected.unknown.route/controller"
-    })
-    public void shouldNotUnrouteReverseClientWithUnknownRoute() throws Exception
-    {
-        k3po.start();
         k3po.finish();
     }
 }

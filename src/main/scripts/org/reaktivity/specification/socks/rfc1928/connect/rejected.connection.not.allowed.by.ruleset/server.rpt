@@ -14,14 +14,9 @@
 # under the License.
 #
 
-
-property newServerAcceptRef ${nukleus:newRouteRef()}
-property newClientConnectRef ${newServerAcceptRef}
-
-property serverAccept "nukleus://socks/streams/source"
+property serverAccept "nukleus://streams/socks#0"
 
 accept ${serverAccept}
-  option nukleus:route ${newClientConnectRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:byteorder "network"

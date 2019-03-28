@@ -16,7 +16,7 @@
 
 property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlRG010101N ${nukleiRG010101N.controlNew("socks")}
+property controlRG010101N ${nukleiRG010101N.controlNew()}
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
@@ -26,19 +26,16 @@ connected
 
 read 0x00000001
 read (long:correlationIdRG010101N)
+read ${core:string("socks")}
 read [0x04]
-read ${core:string("source")}
-read 0L
-read ${core:string("target")}
-read 0L
-read [0..8]
-read ${core:string("fd12:3456:789a:1::c6a8:1")}
-read short 8080
+read [0..8] # authorization
+read ${core:string("socks#0")}
+read ${core:string("target#0")}
+read ${socks:routeEx("fd12:3456:789a:1::c6a8:1", 8080)}
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nukleus:newRouteRef()}
-write ${nukleus:newRouteRef()}
+write ${nukleus:newClientRouteId("socks#0", "target#0")}
 write flush
 
 close

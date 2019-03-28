@@ -14,21 +14,15 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nukleus:newRouteRef()}
-property newServerConnectRef ${newClientAcceptRef} # external scope
-
-property serverAccept "nukleus://target/streams/socks"
+property serverAccept "nukleus://streams/target#0"
 
 accept ${serverAccept}
-  option nukleus:route  ${newServerConnectRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext ${core:string("192.168.0.1")}
-                       short 8080
+read nukleus:begin.ext ${socks:beginEx("192.168.0.1", 8080)}
 
-write nukleus:begin.ext ${core:string("192.168.0.100")}
-                        short 32545
+write nukleus:begin.ext ${socks:beginEx("192.168.0.100", 32545)}
 
 connected

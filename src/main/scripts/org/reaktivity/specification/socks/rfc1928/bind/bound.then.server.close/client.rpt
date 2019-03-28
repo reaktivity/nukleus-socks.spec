@@ -14,10 +14,8 @@
 # under the License.
 #
 
-property newClientConnectRef ${nukleus:newRouteRef()} # external scope
-
-connect await ROUTED_CLIENT_REVERSE "nukleus://socks/streams/source"
-  option nukleus:route ${newClientConnectRef}
+connect await ROUTED_CLIENT_REVERSE
+        "nukleus://streams/socks#0"
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:byteorder "network"

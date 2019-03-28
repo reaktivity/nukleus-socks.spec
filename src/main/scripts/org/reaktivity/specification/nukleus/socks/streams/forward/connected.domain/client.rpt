@@ -14,18 +14,13 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nukleus:newRouteRef()} # external scope
-
 connect await ROUTED_CLIENT
-        "nukleus://socks/streams/source"
-  option nukleus:route ${newClientAcceptRef}
+        "nukleus://streams/socks#0"
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-write nukleus:begin.ext [0x0b] "example.com"
-                        short 8080
+write nukleus:begin.ext ${socks:beginEx("example.com", 8080)}
 
-read nukleus:begin.ext [0x0b] "192.168.0.1"
-                       short 32767
+read nukleus:begin.ext ${socks:beginEx("192.168.0.1", 32767)}
 
 connected

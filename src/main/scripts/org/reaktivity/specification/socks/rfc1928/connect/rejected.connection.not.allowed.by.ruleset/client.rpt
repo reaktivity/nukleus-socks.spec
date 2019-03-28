@@ -14,10 +14,8 @@
 # under the License.
 #
 
-property newServerAcceptRef ${nukleus:newRouteRef()} # external scope
-
-connect await ROUTED_SERVER "nukleus://socks/streams/source"
-  option nukleus:route ${newServerAcceptRef}
+connect await ROUTED_SERVER
+        "nukleus://streams/socks#0"
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:byteorder "network"
