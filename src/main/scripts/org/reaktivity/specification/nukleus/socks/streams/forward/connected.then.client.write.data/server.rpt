@@ -23,8 +23,7 @@ accepted
 
 read nukleus:begin.ext ${socks:beginEx("example.com", 8080)}
 
-write nukleus:begin.ext [0x0b] "192.168.0.1"
-                        short 32767
+write nukleus:begin.ext ${socks:beginEx("192.168.0.1", 32767)}
 
 connected
 

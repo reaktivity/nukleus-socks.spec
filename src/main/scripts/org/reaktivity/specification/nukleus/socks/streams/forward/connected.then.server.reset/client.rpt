@@ -21,8 +21,7 @@ connect await ROUTED_CLIENT
 
 write nukleus:begin.ext ${socks:beginEx("example.com", 8080)}
 
-read nukleus:begin.ext [0x0b] "192.168.0.1"
-                       short 32767
+read nukleus:begin.ext ${socks:beginEx("192.168.0.1", 32767)}
 
 connected
 
