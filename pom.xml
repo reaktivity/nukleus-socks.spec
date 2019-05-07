@@ -49,10 +49,10 @@
 
     <junit.version>4.12</junit.version>
 
-    <k3po.version>3.0.0-alpha-97</k3po.version>
-    <k3po.nukleus.ext.version>0.38</k3po.nukleus.ext.version>
+    <k3po.version>3.0.0-alpha-99</k3po.version>
+    <k3po.nukleus.ext.version>0.40</k3po.nukleus.ext.version>
 
-    <nukleus.spec.version>0.31</nukleus.spec.version>
+    <nukleus.spec.version>0.34</nukleus.spec.version>
     <nukleus.plugin.version>0.33</nukleus.plugin.version>
   </properties>
 
@@ -64,6 +64,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.kaazing</groupId>
+      <artifactId>k3po.lang</artifactId>
+      <version>${k3po.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.reaktivity</groupId>
       <artifactId>nukleus.spec</artifactId>
       <version>${nukleus.spec.version}</version>
@@ -72,16 +78,13 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kaazing</groupId>
       <artifactId>k3po.junit</artifactId>
       <version>${k3po.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.kaazing</groupId>
-      <artifactId>k3po.lang</artifactId>
-      <version>${k3po.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
