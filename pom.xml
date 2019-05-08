@@ -53,7 +53,7 @@
     <k3po.nukleus.ext.version>0.41</k3po.nukleus.ext.version>
 
     <nukleus.spec.version>0.35</nukleus.spec.version>
-    <nukleus.plugin.version>0.34</nukleus.plugin.version>
+    <nukleus.plugin.version>0.33</nukleus.plugin.version>
   </properties>
 
   <dependencies>
