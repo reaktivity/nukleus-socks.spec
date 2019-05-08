@@ -50,10 +50,10 @@
     <junit.version>4.12</junit.version>
 
     <k3po.version>3.0.0-alpha-100</k3po.version>
-    <k3po.nukleus.ext.version>0.40</k3po.nukleus.ext.version>
+    <k3po.nukleus.ext.version>0.41</k3po.nukleus.ext.version>
 
-    <nukleus.spec.version>0.34</nukleus.spec.version>
-    <nukleus.plugin.version>0.33</nukleus.plugin.version>
+    <nukleus.spec.version>0.35</nukleus.spec.version>
+    <nukleus.plugin.version>0.34</nukleus.plugin.version>
   </properties>
 
   <dependencies>
