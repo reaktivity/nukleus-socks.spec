@@ -33,6 +33,7 @@ public final class SocksFunctions
     {
         final MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
         final SocksRouteExFW routeEx = new SocksRouteExFW.Builder()
+
                                                          .wrap(writeBuffer, 0, writeBuffer.capacity())
                                                          .address(address)
                                                          .port(port)
