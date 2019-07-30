@@ -75,6 +75,5 @@ public final class SocksFunctions
 
     private SocksFunctions()
     {
-        // utility
     }
 }
