@@ -29,8 +29,8 @@ public final class SocksFunctions
     @Function
     public static SocksRouteExBuilder routeEx()
     {
-        SocksRouteExBuilder routeEx = new SocksRouteExBuilder();
-        return routeEx;
+        //SocksRouteExBuilder routeEx = new SocksRouteExBuilder();
+        return new SocksRouteExBuilder();
     }
 
     @Function
