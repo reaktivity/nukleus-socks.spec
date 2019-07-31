@@ -29,14 +29,12 @@ public final class SocksFunctions
     @Function
     public static SocksRouteExBuilder routeEx()
     {
-        //SocksRouteExBuilder routeEx = new SocksRouteExBuilder();
         return new SocksRouteExBuilder();
     }
 
     @Function
     public static SocksBeginExBuilder beginEx()
     {
-        //SocksBeginExBuilder beginEx = new SocksBeginExBuilder();
         return new SocksBeginExBuilder();
     }
 
