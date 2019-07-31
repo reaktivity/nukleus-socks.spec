@@ -27,36 +27,79 @@ public final class SocksFunctions
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
 
     @Function
-    public static byte[] routeEx(
-        String address,
-        int port)
+    public static byte[] routeEx(String address, int port)
     {
-        final MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
-        final SocksRouteExFW routeEx = new SocksRouteExFW.Builder()
-
-                                                         .wrap(writeBuffer, 0, writeBuffer.capacity())
-                                                         .address(address)
-                                                         .port(port)
-                                                         .build();
-        final byte[] bytes = new byte[routeEx.sizeof()];
-        routeEx.buffer().getBytes(0, bytes);
-        return bytes;
+        SocksRouteExBuilder routeEx = new SocksRouteExBuilder();
+        return routeEx.address(address).port(port).build();
     }
 
     @Function
-    public static byte[] beginEx(
-        String address,
-        int port)
+    public static byte[] beginEx(String address, int port)
     {
-        final MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
-        final SocksBeginExFW beginEx = new SocksBeginExFW.Builder()
-                                                         .wrap(writeBuffer, 0, writeBuffer.capacity())
-                                                         .address(address)
-                                                         .port(port)
-                                                         .build();
-        final byte[] bytes = new byte[beginEx.sizeof()];
-        beginEx.buffer().getBytes(0, bytes);
-        return bytes;
+        SocksBeginExBuilder beginEx = new SocksBeginExBuilder();
+        return beginEx.address(address).port(port).build();
+    }
+
+    public static final class SocksRouteExBuilder
+    {
+        private final SocksRouteExFW.Builder routeExRw;
+
+        private SocksRouteExBuilder()
+        {
+            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
+            this.routeExRw = new SocksRouteExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+        }
+
+        private SocksRouteExBuilder address(String address)
+        {
+            this.routeExRw.address(address);
+            return this;
+        }
+
+        private SocksRouteExBuilder port(int port)
+        {
+            this.routeExRw.port(port);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final SocksRouteExFW routeEx = this.routeExRw.build();
+            final byte[] array = new byte[routeEx.sizeof()];
+            routeEx.buffer().getBytes(0, array);
+            return array;
+        }
+    }
+
+    public static final class SocksBeginExBuilder
+    {
+        private final SocksBeginExFW.Builder beginExRW;
+
+        private SocksBeginExBuilder()
+        {
+            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.beginExRW = new SocksBeginExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+        }
+
+        private SocksBeginExBuilder address(String address)
+        {
+            this.beginExRW.address(address);
+            return this;
+        }
+
+        private SocksBeginExBuilder port(int port)
+        {
+            this.beginExRW.port(port);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final SocksBeginExFW beginEx = beginExRW.build();
+            final byte[] array = new byte[beginEx.sizeof()];
+            beginEx.buffer().getBytes(0, array);
+            return array;
+        }
     }
 
     public static class Mapper extends FunctionMapperSpi.Reflective
