@@ -27,17 +27,17 @@ public final class SocksFunctions
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
 
     @Function
-    public static byte[] routeEx(String address, int port)
+    public static SocksRouteExBuilder routeEx()
     {
         SocksRouteExBuilder routeEx = new SocksRouteExBuilder();
-        return routeEx.address(address).port(port).build();
+        return routeEx;
     }
 
     @Function
-    public static byte[] beginEx(String address, int port)
+    public static SocksBeginExBuilder beginEx()
     {
-        SocksBeginExBuilder beginEx = new SocksBeginExBuilder();
-        return beginEx.address(address).port(port).build();
+        //SocksBeginExBuilder beginEx = new SocksBeginExBuilder();
+        return new SocksBeginExBuilder();
     }
 
     public static final class SocksRouteExBuilder
@@ -50,13 +50,13 @@ public final class SocksFunctions
             this.routeExRw = new SocksRouteExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
-        private SocksRouteExBuilder address(String address)
+        public SocksRouteExBuilder address(String address)
         {
             this.routeExRw.address(address);
             return this;
         }
 
-        private SocksRouteExBuilder port(int port)
+        public SocksRouteExBuilder port(int port)
         {
             this.routeExRw.port(port);
             return this;
@@ -81,13 +81,13 @@ public final class SocksFunctions
             this.beginExRW = new SocksBeginExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
-        private SocksBeginExBuilder address(String address)
+        public SocksBeginExBuilder address(String address)
         {
             this.beginExRW.address(address);
             return this;
         }
 
-        private SocksBeginExBuilder port(int port)
+        public SocksBeginExBuilder port(int port)
         {
             this.beginExRW.port(port);
             return this;
