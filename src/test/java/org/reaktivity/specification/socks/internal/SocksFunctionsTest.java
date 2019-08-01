@@ -87,8 +87,8 @@ public class SocksFunctionsTest
                 .build();
 
         DirectBuffer buffer = new UnsafeBuffer(array);
-        SocksEndExFW SocksEndEx = new SocksEndExFW().wrap(buffer, 0, buffer.capacity());
-        assertEquals(0, SocksEndEx.typeId());
+        SocksEndExFW socksEndEx = new SocksEndExFW().wrap(buffer, 0, buffer.capacity());
+        assertEquals(0, socksEndEx.typeId());
     }
     @Test
     public void shouldEncodeSocksAbortExAsUnsubscribe()
@@ -99,8 +99,8 @@ public class SocksFunctionsTest
                 .build();
 
         DirectBuffer buffer = new UnsafeBuffer(array);
-        SocksAbortExFW SocksAbortEx = new SocksAbortExFW().wrap(buffer, 0, buffer.capacity());
-        assertEquals(0, SocksAbortEx.typeId());
-        assertEquals(0xf9, SocksAbortEx.reason());
+        SocksAbortExFW socksAbortEx = new SocksAbortExFW().wrap(buffer, 0, buffer.capacity());
+        assertEquals(0, socksAbortEx.typeId());
+        assertEquals(0xf9, socksAbortEx.reason());
     }
 }
