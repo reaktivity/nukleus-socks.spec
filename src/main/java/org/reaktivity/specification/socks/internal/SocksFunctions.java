@@ -21,7 +21,8 @@ import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
-
+import org.reaktivity.specification.socks.internal.types.stream.SocksEndExFW;
+import org.reaktivity.specification.socks.internal.types.stream.SocksAbortExFW;
 public final class SocksFunctions
 {
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
@@ -37,6 +38,18 @@ public final class SocksFunctions
     {
         return new SocksBeginExBuilder();
     }
+
+    @Function
+    public static SocksEndExBuilder endEx()
+    {
+        return new SocksEndExBuilder();
+    }
+    @Function
+    public static SocksAbortExBuilder abortEx()
+    {
+        return new SocksAbortExBuilder();
+    }
+
 
     public static final class SocksRouteExBuilder
     {
@@ -75,7 +88,7 @@ public final class SocksFunctions
 
         private SocksBeginExBuilder()
         {
-            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
             this.beginExRW = new SocksBeginExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
@@ -102,6 +115,63 @@ public final class SocksFunctions
             final SocksBeginExFW beginEx = beginExRW.build();
             final byte[] array = new byte[beginEx.sizeof()];
             beginEx.buffer().getBytes(0, array);
+            return array;
+        }
+    }
+
+    public static final class SocksEndExBuilder
+    {
+        private final SocksEndExFW.Builder endExRw;
+
+        private SocksEndExBuilder()
+        {
+            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.endExRw = new SocksEndExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+        }
+        public SocksEndExBuilder typeId(int typeId)
+        {
+            this.endExRw.typeId(typeId);
+            return this;
+        }
+        public byte[] build()
+        {
+            final SocksEndExFW endEx = endExRw.build();
+            final byte[] array = new byte[endEx.sizeof()];
+            endEx.buffer().getBytes(endEx.offset(), array);
+            return array;
+        }
+
+    }
+
+    public static final class SocksAbortExBuilder
+    {
+        private final SocksAbortExFW.Builder abortExRW;
+
+        private SocksAbortExBuilder()
+        {
+            MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024 * 8]);
+            this.abortExRW = new SocksAbortExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+        }
+
+        public SocksAbortExBuilder typeId(
+                int typeId)
+        {
+            abortExRW.typeId(typeId);
+            return this;
+        }
+
+        public SocksAbortExBuilder reason(
+                int reason)
+        {
+            abortExRW.reason(reason);
+            return this;
+        }
+
+        public byte[] build()
+        {
+            final SocksAbortExFW abortEx = abortExRW.build();
+            final byte[] array = new byte[abortEx.sizeof()];
+            abortEx.buffer().getBytes(abortEx.offset(), array);
             return array;
         }
     }

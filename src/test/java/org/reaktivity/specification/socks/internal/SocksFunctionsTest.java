@@ -29,7 +29,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
+import org.reaktivity.specification.socks.internal.types.stream.SocksAbortExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
+import org.reaktivity.specification.socks.internal.types.stream.SocksEndExFW;
 
 public class SocksFunctionsTest
 {
@@ -75,5 +77,30 @@ public class SocksFunctionsTest
 
         assertEquals("example.com", beginEx.address().asString());
         assertEquals(8080, beginEx.port());
+    }
+
+    @Test
+    public void shouldEncodeSocksEndExAsUnsubscribe()
+    {
+        final byte[] array = SocksFunctions.endEx()
+                .typeId(0)
+                .build();
+
+        DirectBuffer buffer = new UnsafeBuffer(array);
+        SocksEndExFW SocksEndEx = new SocksEndExFW().wrap(buffer, 0, buffer.capacity());
+        assertEquals(0, SocksEndEx.typeId());
+    }
+    @Test
+    public void shouldEncodeSocksAbortExAsUnsubscribe()
+    {
+        final byte[] array = SocksFunctions.abortEx()
+                .typeId(0)
+                .reason(0xf9)
+                .build();
+
+        DirectBuffer buffer = new UnsafeBuffer(array);
+        SocksAbortExFW SocksAbortEx = new SocksAbortExFW().wrap(buffer, 0, buffer.capacity());
+        assertEquals(0, SocksAbortEx.typeId());
+        assertEquals(0xf9, SocksAbortEx.reason());
     }
 }
