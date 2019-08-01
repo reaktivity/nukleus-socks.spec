@@ -79,6 +79,12 @@ public final class SocksFunctions
             this.beginExRW = new SocksBeginExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
+        public SocksBeginExBuilder typeId(int typeId)
+        {
+            beginExRW.typeId(typeId);
+            return this;
+        }
+
         public SocksBeginExBuilder address(String address)
         {
             this.beginExRW.address(address);
