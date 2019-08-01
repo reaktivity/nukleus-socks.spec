@@ -69,7 +69,7 @@ public class SocksFunctionsTest
     @Test
     public void shouldBuildBeginEx() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx().address("example.com").port(8080).build();
+        byte[] bytes = SocksFunctions.beginEx().typeId(0).address("example.com").port(8080).build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
