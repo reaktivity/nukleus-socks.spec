@@ -19,7 +19,7 @@ property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapa
 property controlRG010101C ${nukleiRG010101C.control()}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controller)}
+        option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controllr)}
         option agrona:writer ${agrona:manyToOneWriter(controlRG010101C.nukleus)}
 
 connected
@@ -32,9 +32,9 @@ write 0L
 write ${core:string("socks#0")}
 write ${core:string("target#0")}
 write ${socks:routeEx()
-			 .address("example.com")
-			 .port(8080)
-			 .build()}
+             .address("example.com")
+             .port(8080)
+             .build()}
 write flush
 
 read 0x40000001
