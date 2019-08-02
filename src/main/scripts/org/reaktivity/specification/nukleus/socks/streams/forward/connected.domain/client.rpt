@@ -20,10 +20,10 @@ connect await ROUTED_CLIENT
   option nukleus:transmission "duplex"
 
 write nukleus:begin.ext ${socks:beginEx()
-							   .typeId(nukleus:id("socks"))
-							   .address("example.com")
-							   .port(8080)
-							   .build()}
+                               .typeId(nukleus:id("socks"))
+                               .address("example.com")
+                               .port(8080)
+                               .build()}
 
 read nukleus:begin.ext ${socks:beginEx()
 							  .typeId(nukleus:id("socks"))
