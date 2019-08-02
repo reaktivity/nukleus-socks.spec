@@ -28,9 +28,9 @@ read nukleus:begin.ext ${socks:beginEx()
                               .build()}
 
 write nukleus:begin.ext ${socks:beginEx()
-                               .typeId(nukleus:id("socks"))
-                               .address("192.168.0.1")
-                               .port(32767)
-                               .build()}
+                                .typeId(nukleus:id("socks"))
+                                .address("192.168.0.1")
+                                .port(32767)
+                                .build()}
 
 connected
