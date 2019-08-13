@@ -13,6 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 package org.reaktivity.specification.socks.internal;
 
 import org.agrona.MutableDirectBuffer;
@@ -21,6 +22,7 @@ import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
+
 public final class SocksFunctions
 {
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
