@@ -31,15 +31,5 @@ scope socks
             string address;
             uint16 port;
         }
-
-        struct SocksEndEx extends core::stream::Extension
-        {
-
-        }
-
-        struct SocksAbortEx extends core::stream::Extension
-        {
-            uint8 reason;
-        }
     }
 }
