@@ -128,5 +128,3 @@ public final class SocksFunctions
         // utility
     }
 }
-
-
