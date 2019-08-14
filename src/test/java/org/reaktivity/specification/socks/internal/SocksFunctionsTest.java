@@ -47,9 +47,9 @@ public class SocksFunctionsTest
     public void shouldLoadFunctions() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-            ".address(\"example.com\")" +
-            ".port(8080)" +
-            ".build()}";
+                                       ".address(\"example.com\")" +
+                                       ".port(8080)" +
+                                       ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
         assertNotNull(routeExBytes);
