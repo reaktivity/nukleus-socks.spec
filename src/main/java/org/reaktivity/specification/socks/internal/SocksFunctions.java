@@ -13,7 +13,6 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-
 package org.reaktivity.specification.socks.internal;
 
 import org.agrona.MutableDirectBuffer;
@@ -39,7 +38,6 @@ public final class SocksFunctions
         return new SocksBeginExBuilder();
     }
 
-
     public static final class SocksRouteExBuilder
     {
         private final SocksRouteExFW.Builder routeExRw;
@@ -50,13 +48,15 @@ public final class SocksFunctions
             this.routeExRw = new SocksRouteExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
-        public SocksRouteExBuilder address(String address)
+        public SocksRouteExBuilder address(
+            String address)
         {
             this.routeExRw.address(address);
             return this;
         }
 
-        public SocksRouteExBuilder port(int port)
+        public SocksRouteExBuilder port(
+            int port)
         {
             this.routeExRw.port(port);
             return this;
@@ -81,19 +81,22 @@ public final class SocksFunctions
             this.beginExRW = new SocksBeginExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
-        public SocksBeginExBuilder typeId(int typeId)
+        public SocksBeginExBuilder typeId(
+            int typeId)
         {
             beginExRW.typeId(typeId);
             return this;
         }
 
-        public SocksBeginExBuilder address(String address)
+        public SocksBeginExBuilder address(
+            String address)
         {
             this.beginExRW.address(address);
             return this;
         }
 
-        public SocksBeginExBuilder port(int port)
+        public SocksBeginExBuilder port(
+            int port)
         {
             this.beginExRW.port(port);
             return this;
