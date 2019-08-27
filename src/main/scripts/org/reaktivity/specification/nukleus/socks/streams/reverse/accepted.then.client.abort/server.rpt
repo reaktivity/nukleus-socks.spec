@@ -21,9 +21,17 @@ accept ${serverAccept}
   option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext ${socks:beginEx("example.com", 8080)}
+read nukleus:begin.ext ${socks:beginEx()
+                              .typeId(nukleus:id("socks"))
+                              .address("example.com")
+                              .port(8080)
+                              .build()}
 
-write nukleus:begin.ext ${socks:beginEx("192.168.0.100", 32545)}
+write nukleus:begin.ext ${socks:beginEx()
+                               .typeId(nukleus:id("socks"))
+                               .address("192.168.0.100")
+                               .port(32545)
+                               .build()}
 
 connected
 

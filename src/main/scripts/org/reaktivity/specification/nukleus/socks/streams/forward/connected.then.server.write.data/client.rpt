@@ -19,9 +19,17 @@ connect await ROUTED_CLIENT
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-write nukleus:begin.ext ${socks:beginEx("example.com", 8080)}
+write nukleus:begin.ext ${socks:beginEx()
+                               .typeId(nukleus:id("socks"))
+                               .address("example.com")
+                               .port(8080)
+                               .build()}
 
-read nukleus:begin.ext ${socks:beginEx("192.168.0.1", 32767)}
+read nukleus:begin.ext ${socks:beginEx()
+                              .typeId(nukleus:id("socks"))
+                              .address("192.168.0.1")
+                              .port(32767)
+                              .build()}
 
 connected
 

@@ -40,5 +40,5 @@ write [0x05]                # version
       [0x00]                # succeeded
       [0x00]                # reserved
       [0x01]                # IPv4 address type
-      [0xc6 0xa8 0x00 0x01] # assigned address
+      [0xc0 0xa8 0x00 0x01] # assigned address
       short 32767           # assigned port

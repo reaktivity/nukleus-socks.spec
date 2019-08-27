@@ -31,7 +31,10 @@ read [0x04]
 read [0..8] # authorization
 read ${core:string("socks#0")}
 read ${core:string("target#0")}
-read ${socks:routeEx("fd12:3456:789a:1::c6a8:1", 8080)}
+read ${socks:routeEx()
+            .address("fd12:3456:789a:1::c6a8:1")
+            .port(8080)
+            .build()}
 
 write 0x40000001
 write ${correlationIdRG010101N}

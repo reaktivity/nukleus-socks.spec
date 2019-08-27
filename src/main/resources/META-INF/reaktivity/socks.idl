@@ -26,7 +26,7 @@ scope socks
 
     scope stream
     {
-        struct SocksBeginEx
+        struct SocksBeginEx extends core::stream::Extension
         {
             string address;
             uint16 port;

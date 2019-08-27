@@ -46,7 +46,10 @@ public class SocksFunctionsTest
     @Test
     public void shouldLoadFunctions() throws Exception
     {
-        String expressionText = "${socks:routeEx('example.com', 8080)}";
+        String expressionText = "${socks:routeEx()" +
+                                       ".address(\"example.com\")" +
+                                       ".port(8080)" +
+                                       ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
         assertNotNull(routeExBytes);
@@ -55,7 +58,10 @@ public class SocksFunctionsTest
     @Test
     public void shouldBuildRouteEx() throws Exception
     {
-        byte[] bytes = SocksFunctions.routeEx("example.com", 8080);
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("example.com")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -66,7 +72,11 @@ public class SocksFunctionsTest
     @Test
     public void shouldBuildBeginEx() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx("example.com", 8080);
+        byte[] bytes = SocksFunctions.beginEx()
+                                     .typeId(0)
+                                     .address("example.com")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
