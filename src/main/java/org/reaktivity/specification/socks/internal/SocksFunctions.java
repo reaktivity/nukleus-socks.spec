@@ -91,7 +91,6 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address)
         {
-            q
             this.beginExRW.address(address);
             return this;
         }
