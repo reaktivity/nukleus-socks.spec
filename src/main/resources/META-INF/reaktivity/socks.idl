@@ -21,6 +21,7 @@ scope socks
         case 4: octets[16] ipv6Address;
         case 3: string domainName;
     }
+
     scope control
     {
         struct SocksRouteEx

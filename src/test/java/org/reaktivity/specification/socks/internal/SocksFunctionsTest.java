@@ -59,13 +59,13 @@ public class SocksFunctionsTest
     public void shouldBuildRouteEx() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-                                     .address("example.com")
+                                     .domain("example.com")
                                      .port(8080)
                                      .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
 
-        assertEquals("example.com", routeEx.address().asString());
+        assertEquals("example.com", routeEx.address().domainName().asString());
         assertEquals(8080, routeEx.port());
     }
 
@@ -74,13 +74,13 @@ public class SocksFunctionsTest
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
-                                     .address("example.com")
+                                     .domain("example.com")
                                      .port(8080)
                                      .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
-        assertEquals("example.com", beginEx.address().asString());
+        assertEquals("example.com", beginEx.address().domainName().asString());
         assertEquals(8080, beginEx.port());
     }
 }

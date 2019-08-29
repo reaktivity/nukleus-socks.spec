@@ -21,6 +21,12 @@ import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
+import org.reaktivity.specification.socks.internal.types.SocksAddressFW.Builder;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.function.Consumer;
 
 public final class SocksFunctions
 {
@@ -49,9 +55,22 @@ public final class SocksFunctions
         }
 
         public SocksRouteExBuilder address(
-            String address)
+            String address) throws UnknownHostException
         {
-            this.routeExRw.address(address);
+            final InetAddress inet = InetAddress.getByName(address);
+            final byte[] ip = inet.getAddress();
+            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
+                b -> b.ipv4Address(s -> s.put(ip)):
+                b -> b.ipv6Address(s -> s.put(ip));
+
+            routeExRw.address(addressBuilder);
+            return this;
+        }
+
+        public SocksRouteExBuilder domain(
+            String address) throws UnknownHostException
+        {
+            routeExRw.address(b -> b.domainName(address));
             return this;
         }
 
@@ -89,9 +108,22 @@ public final class SocksFunctions
         }
 
         public SocksBeginExBuilder address(
-            String address)
+            String address) throws UnknownHostException
         {
-            this.beginExRW.address(address);
+            final InetAddress inet = InetAddress.getByName(address);
+            final byte[] ip = inet.getAddress();
+            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
+                b -> b.ipv4Address(s -> s.put(ip)):
+                b -> b.ipv6Address(s -> s.put(ip));
+
+            beginExRW.address(addressBuilder);
+            return this;
+        }
+
+        public SocksBeginExBuilder domain(
+            String address) throws UnknownHostException
+        {
+            beginExRW.address(b -> b.domainName(address));
             return this;
         }
 
