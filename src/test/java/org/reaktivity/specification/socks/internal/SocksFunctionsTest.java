@@ -30,6 +30,10 @@ import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
+import static java.util.Arrays.copyOfRange;
+import static org.junit.Assert.assertArrayEquals;
 
 public class SocksFunctionsTest
 {
@@ -44,10 +48,10 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldLoadFunctions() throws Exception
+    public void shouldLoadFunctionsWithDomainName() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-                                       ".address(\"example.com\")" +
+                                       ".domain(\"example.com\")" +
                                        ".port(8080)" +
                                        ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
@@ -56,7 +60,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteEx() throws Exception
+    public void shouldBuildRouteExWithDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .domain("example.com")
@@ -70,7 +74,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginEx() throws Exception
+    public void shouldBuildBeginExWithDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -81,6 +85,96 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
         assertEquals("example.com", beginEx.address().domainName().asString());
+        assertEquals(8080, beginEx.port());
+    }
+
+    @Test
+    public void shouldLoadFunctionsWithIpv4Address() throws Exception
+    {
+        String expressionText = "${socks:routeEx()" +
+            ".address(\"127.0.0.1\")" +
+            ".port(8080)" +
+            ".build()}";
+        ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
+        String routeExBytes = (String) expression.getValue(ctx);
+        assertNotNull(routeExBytes);
+    }
+
+    @Test
+    public void shouldBuildRouteExWithIpv4Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+            .address("127.0.0.1")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals(KIND_IPV4_ADDRESS, routeEx.address().kind());
+        assertArrayEquals(new byte[] { 127, 0, 0, 1 },
+            copyOfRange(routeEx.buffer().byteArray(), routeEx.address().offset() + 1, routeEx.address().limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
+    public void shouldBuildBeginExWithIpv4Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+            .typeId(0)
+            .address("127.0.0.1")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals(KIND_IPV4_ADDRESS, beginEx.address().kind());
+        assertArrayEquals(new byte[] { 127, 0, 0, 1 },
+            copyOfRange(beginEx.buffer().byteArray(), beginEx.address().offset() + 1, beginEx.address().limit()));
+        assertEquals(8080, beginEx.port());
+    }
+
+    @Test
+    public void shouldLoadFunctionsWithIpv6Address() throws Exception
+    {
+        String expressionText = "${socks:routeEx()" +
+            ".address(\"2001:0db8:85a3:0000:0000:8a2e:0370:7334\")" +
+            ".port(8080)" +
+            ".build()}";
+        ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
+        String routeExBytes = (String) expression.getValue(ctx);
+        assertNotNull(routeExBytes);
+    }
+
+    @Test
+    public void shouldBuildRouteExWithIpv6Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertArrayEquals(new byte[] { 32, 1, 13, -72, -123, -93, 0, 0, 0, 0, -118, 46, 3, 112, 115, 52 },
+            copyOfRange(routeEx.buffer().byteArray(), routeEx.address().offset() + 1, routeEx.address().limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
+    public void shouldBuildBeginExWithIpv6Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+            .typeId(0)
+            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertArrayEquals(new byte[] { 32, 1, 13, -72, -123, -93, 0, 0, 0, 0, -118, 46, 3, 112, 115, 52 },
+            copyOfRange(beginEx.buffer().byteArray(), beginEx.address().offset() + 1, beginEx.address().limit()));
         assertEquals(8080, beginEx.port());
     }
 }
