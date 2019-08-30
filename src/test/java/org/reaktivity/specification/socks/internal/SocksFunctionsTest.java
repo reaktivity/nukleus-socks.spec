@@ -169,7 +169,7 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[] { 32, 1, 13, -72, -123, -93, 0, 0, 0, 0, -118, 46, 3, 112, 115, 52 },
+        assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
             copyOfRange(ipv6Address.buffer().byteArray(),
                         ipv6Address.offset(),
                         ipv6Address.limit()));
