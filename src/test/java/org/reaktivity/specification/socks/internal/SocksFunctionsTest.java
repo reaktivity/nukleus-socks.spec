@@ -56,6 +56,7 @@ public class SocksFunctionsTest
                                        ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
+
         assertNotNull(routeExBytes);
     }
 
@@ -92,11 +93,12 @@ public class SocksFunctionsTest
     public void shouldLoadFunctionsWithIpv4Address() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-            ".address(\"127.0.0.1\")" +
-            ".port(8080)" +
-            ".build()}";
+                                       ".address(\"127.0.0.1\")" +
+                                       ".port(8080)" +
+                                       ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
+
         assertNotNull(routeExBytes);
     }
 
@@ -104,9 +106,9 @@ public class SocksFunctionsTest
     public void shouldBuildRouteExWithIpv4Address() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-            .address("127.0.0.1")
-            .port(8080)
-            .build();
+                                     .address("127.0.0.1")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -120,10 +122,10 @@ public class SocksFunctionsTest
     public void shouldBuildBeginExWithIpv4Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("127.0.0.1")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("127.0.0.1")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -137,11 +139,12 @@ public class SocksFunctionsTest
     public void shouldLoadFunctionsWithIpv6Address() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-            ".address(\"2001:0db8:85a3:0000:0000:8a2e:0370:7334\")" +
-            ".port(8080)" +
-            ".build()}";
+                                       ".address(\"2001:0db8:85a3:0000:0000:8a2e:0370:7334\")" +
+                                       ".port(8080)" +
+                                       ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
+
         assertNotNull(routeExBytes);
     }
 
@@ -149,9 +152,9 @@ public class SocksFunctionsTest
     public void shouldBuildRouteExWithIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
-            .port(8080)
-            .build();
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -165,10 +168,10 @@ public class SocksFunctionsTest
     public void shouldBuildBeginExWithIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
