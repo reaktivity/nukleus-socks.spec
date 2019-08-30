@@ -180,4 +180,19 @@ public class SocksFunctionsTest
             copyOfRange(beginEx.buffer().byteArray(), beginEx.address().offset() + 1, beginEx.address().limit()));
         assertEquals(8080, beginEx.port());
     }
+
+    @Test
+    public void checkresultAfterPassDomainNameinIpv4() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+                                     .typeId(0)
+                                     .address("example.com")
+                                     .port(8080)
+                                     .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+        System.out.println(beginEx.address().kind());
+
+    }
+
 }

@@ -46,44 +46,40 @@ public final class SocksFunctions
 
     public static final class SocksRouteExBuilder
     {
-        private final SocksRouteExFW.Builder routeExRw;
+        private final SocksRouteExFW.Builder routeExRW;
 
         private SocksRouteExBuilder()
         {
             MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[MAX_BUFFER_SIZE]);
-            this.routeExRw = new SocksRouteExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
+            this.routeExRW = new SocksRouteExFW.Builder().wrap(writeBuffer, 0, writeBuffer.capacity());
         }
 
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
             final InetAddress inet = InetAddress.getByName(address);
-            final byte[] ip = inet.getAddress();
-            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
-                b -> b.ipv4Address(s -> s.put(ip)):
-                b -> b.ipv6Address(s -> s.put(ip));
-
-            routeExRw.address(addressBuilder);
+            final Consumer<Builder> addressBuilder = addressBuilder(inet);
+            routeExRW.address(addressBuilder);
             return this;
         }
 
         public SocksRouteExBuilder domain(
             String address) throws UnknownHostException
         {
-            routeExRw.address(b -> b.domainName(address));
+            routeExRW.address(b -> b.domainName(address));
             return this;
         }
 
         public SocksRouteExBuilder port(
             int port)
         {
-            this.routeExRw.port(port);
+            this.routeExRW.port(port);
             return this;
         }
 
         public byte[] build()
         {
-            final SocksRouteExFW routeEx = this.routeExRw.build();
+            final SocksRouteExFW routeEx = this.routeExRW.build();
             final byte[] array = new byte[routeEx.sizeof()];
             routeEx.buffer().getBytes(0, array);
             return array;
@@ -111,11 +107,7 @@ public final class SocksFunctions
             String address) throws UnknownHostException
         {
             final InetAddress inet = InetAddress.getByName(address);
-            final byte[] ip = inet.getAddress();
-            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
-                b -> b.ipv4Address(s -> s.put(ip)):
-                b -> b.ipv6Address(s -> s.put(ip));
-
+            final Consumer<Builder> addressBuilder = addressBuilder(inet);
             beginExRW.address(addressBuilder);
             return this;
         }
@@ -156,6 +148,16 @@ public final class SocksFunctions
         {
             return "socks";
         }
+    }
+
+    public static Consumer<Builder> addressBuilder(
+        InetAddress inet)
+    {
+        byte[] ip = inet.getAddress();
+        Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
+            b -> b.ipv4Address(s -> s.put(ip)):
+            b -> b.ipv6Address(s -> s.put(ip));
+        return addressBuilder;
     }
 
     private SocksFunctions()
