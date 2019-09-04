@@ -61,9 +61,7 @@ public final class SocksFunctions
             if (vaildateIpv4(address) || vaildateIpv6(address))
             {
                 final InetAddress inet = InetAddress.getByName(address);
-                final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
-                    b -> b.ipv4Address(s -> s.put(inet.getAddress())):
-                    b -> b.ipv6Address(s -> s.put(inet.getAddress()));
+                final Consumer<Builder> addressBuilder = addressBuilder(inet);
                 routeExRW.address(addressBuilder);
             }
             else
