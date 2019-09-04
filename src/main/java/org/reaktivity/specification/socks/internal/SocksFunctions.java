@@ -174,7 +174,6 @@ public final class SocksFunctions
                       .matches();
     }
 
-
     private SocksFunctions()
     {
         // utility
