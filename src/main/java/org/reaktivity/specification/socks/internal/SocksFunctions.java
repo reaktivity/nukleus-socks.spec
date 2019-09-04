@@ -58,7 +58,7 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            if(vaildateIpv4(address) || vaildateIpv6(address))
+            if (vaildateIpv4(address) || vaildateIpv6(address))
             {
                 final InetAddress inet = InetAddress.getByName(address);
                 final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
@@ -109,7 +109,7 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address) throws UnknownHostException
         {
-            if(vaildateIpv4(address) || vaildateIpv6(address))
+            if (vaildateIpv4(address) || vaildateIpv6(address))
             {
                 final InetAddress inet = InetAddress.getByName(address);
                 final Consumer<Builder> addressBuilder = addressBuilder(inet);
