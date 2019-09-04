@@ -64,12 +64,12 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            if (vaildateIpv4(address))
+            if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = InetAddress.getByName(address).getAddress();
                 routeExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
-            else if (vaildateIpv6(address))
+            else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = InetAddress.getByName(address).getAddress();
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
@@ -117,12 +117,12 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address) throws UnknownHostException
         {
-            if (vaildateIpv4(address))
+            if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = InetAddress.getByName(address).getAddress();
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
-            else if (vaildateIpv6(address))
+            else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = InetAddress.getByName(address).getAddress();
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
@@ -163,18 +163,6 @@ public final class SocksFunctions
         {
             return "socks";
         }
-    }
-
-    public static boolean vaildateIpv4(
-        String address)
-    {
-        return IPV4_ADDRESS_MATCHER.get().reset(address).matches();
-    }
-
-    public static boolean vaildateIpv6(
-        String address)
-    {
-        return IPV6_ADDRESS_MATCHER.get().reset(address).matches();
     }
 
     private SocksFunctions()
