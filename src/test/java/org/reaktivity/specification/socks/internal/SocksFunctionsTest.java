@@ -56,7 +56,7 @@ public class SocksFunctionsTest
     public void shouldLoadFunctions() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-                                       ".domain(\"example.com\")" +
+                                       ".address(\"example.com\")" +
                                        ".port(8080)" +
                                        ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
@@ -69,7 +69,7 @@ public class SocksFunctionsTest
     public void shouldBuildRouteExWithDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-                                     .domain("example.com")
+                                     .address("example.com")
                                      .port(8080)
                                      .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
@@ -84,7 +84,7 @@ public class SocksFunctionsTest
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
-                                     .domain("example.com")
+                                     .address("example.com")
                                      .port(8080)
                                      .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);

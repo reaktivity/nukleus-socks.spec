@@ -27,6 +27,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 public final class SocksFunctions
 {
@@ -57,16 +58,18 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            final InetAddress inet = InetAddress.getByName(address);
-            final Consumer<Builder> addressBuilder = addressBuilder(inet);
-            routeExRW.address(addressBuilder);
-            return this;
-        }
-
-        public SocksRouteExBuilder domain(
-            String address) throws UnknownHostException
-        {
-            routeExRW.address(b -> b.domainName(address));
+            if(vaildateIpv4(address) || vaildateIpv6(address))
+            {
+                final InetAddress inet = InetAddress.getByName(address);
+                final Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
+                    b -> b.ipv4Address(s -> s.put(inet.getAddress())):
+                    b -> b.ipv6Address(s -> s.put(inet.getAddress()));
+                routeExRW.address(addressBuilder);
+            }
+            else
+            {
+                routeExRW.address(b -> b.domainName(address));
+            }
             return this;
         }
 
@@ -106,16 +109,16 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address) throws UnknownHostException
         {
-            final InetAddress inet = InetAddress.getByName(address);
-            final Consumer<Builder> addressBuilder = addressBuilder(inet);
-            beginExRW.address(addressBuilder);
-            return this;
-        }
-
-        public SocksBeginExBuilder domain(
-            String address) throws UnknownHostException
-        {
-            beginExRW.address(b -> b.domainName(address));
+            if(vaildateIpv4(address) || vaildateIpv6(address))
+            {
+                final InetAddress inet = InetAddress.getByName(address);
+                final Consumer<Builder> addressBuilder = addressBuilder(inet);
+                beginExRW.address(addressBuilder);
+            }
+            else
+            {
+                beginExRW.address(b -> b.domainName(address));
+            }
             return this;
         }
 
@@ -153,12 +156,26 @@ public final class SocksFunctions
     public static Consumer<Builder> addressBuilder(
         InetAddress inet)
     {
-        byte[] ip = inet.getAddress();
         Consumer<Builder> addressBuilder = inet instanceof Inet4Address ?
-            b -> b.ipv4Address(s -> s.put(ip)):
-            b -> b.ipv6Address(s -> s.put(ip));
+            b -> b.ipv4Address(s -> s.put(inet.getAddress())):
+            b -> b.ipv6Address(s -> s.put(inet.getAddress()));
         return addressBuilder;
     }
+
+    public static boolean vaildateIpv4(String address)
+    {
+        return Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$")
+                      .matcher(address)
+                      .matches();
+    }
+
+    public static boolean vaildateIpv6(String address)
+    {
+        return Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}")
+                      .matcher(address)
+                      .matches();
+    }
+
 
     private SocksFunctions()
     {
