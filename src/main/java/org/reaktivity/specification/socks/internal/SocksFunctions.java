@@ -24,6 +24,7 @@ import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class SocksFunctions
@@ -31,8 +32,12 @@ public final class SocksFunctions
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
     private static final Pattern IPV4_ADDRESS_PATTERN =
         Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+    private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
+        ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
     private static final Pattern IPV6_ADDRESS_PATTERN =
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
+    private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
+        ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
 
     @Function
     public static SocksRouteExBuilder routeEx()
@@ -163,13 +168,13 @@ public final class SocksFunctions
     public static boolean vaildateIpv4(
         String address)
     {
-        return IPV4_ADDRESS_PATTERN.matcher(address).matches();
+        return IPV4_ADDRESS_MATCHER.get().reset(address).matches();
     }
 
     public static boolean vaildateIpv6(
         String address)
     {
-        return IPV6_ADDRESS_PATTERN.matcher(address).matches();
+        return IPV6_ADDRESS_MATCHER.get().reset(address).matches();
     }
 
     private SocksFunctions()
