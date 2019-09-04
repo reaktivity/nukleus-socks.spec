@@ -21,12 +21,9 @@ import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
-import org.reaktivity.specification.socks.internal.types.SocksAddressFW.Builder;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 public final class SocksFunctions
@@ -166,17 +163,13 @@ public final class SocksFunctions
     public static boolean vaildateIpv4(
         String address)
     {
-        return IPV4_ADDRESS_PATTERN
-            .matcher(address)
-            .matches();
+        return IPV4_ADDRESS_PATTERN.matcher(address).matches();
     }
 
     public static boolean vaildateIpv6(
         String address)
     {
-        return IPV6_ADDRESS_PATTERN
-            .matcher(address)
-            .matches();
+        return IPV6_ADDRESS_PATTERN.matcher(address).matches();
     }
 
     private SocksFunctions()
