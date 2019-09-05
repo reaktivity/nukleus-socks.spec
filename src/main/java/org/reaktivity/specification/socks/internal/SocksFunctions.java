@@ -37,7 +37,6 @@ public final class SocksFunctions
                         ".(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
-
     private static final Pattern IPV6_ADDRESS_PATTERN =
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
