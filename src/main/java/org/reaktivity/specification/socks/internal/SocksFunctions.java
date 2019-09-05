@@ -32,7 +32,7 @@ public final class SocksFunctions
 {
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
     private static final Pattern IPV4_ADDRESS_PATTERN =
-        Pattern.compile("((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))))");
+        Pattern.compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
     private static final Pattern IPV6_ADDRESS_PATTERN =
@@ -65,11 +65,17 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            if (IPV4_ADDRESS_MATCHER.get().reset(address).groupCount() == 4)
+            Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
+            int hit = 0;
+            while (ipv4GroupMatch.find() && hit <= 5)
+            {
+                hit++;
+            }
+            if (hit == 4)
             {
                 final byte[] addressBytes = new byte[4];
                 int i = 0;
-                Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
+                ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
                 while (ipv4GroupMatch.find())
                 {
                     addressBytes[i++] = Byte.parseByte(ipv4GroupMatch.group());
@@ -124,9 +130,22 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address) throws UnknownHostException
         {
-            if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
+            Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
+            int hit = 0;
+            while (ipv4GroupMatch.find() && hit <= 5)
             {
-                final byte[] addressBytes = InetAddress.getByName(address).getAddress();
+                hit++;
+            }
+
+            if (hit == 4)
+            {
+                final byte[] addressBytes = new byte[4];
+                int i = 0;
+                ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
+                while (ipv4GroupMatch.find())
+                {
+                    addressBytes[i++] = Byte.parseByte(ipv4GroupMatch.group());
+                }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
