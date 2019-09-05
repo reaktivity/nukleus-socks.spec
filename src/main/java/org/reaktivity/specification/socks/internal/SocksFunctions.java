@@ -19,7 +19,6 @@ import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
-import org.reaktivity.specification.socks.internal.types.OctetsFW;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
 
@@ -78,7 +77,7 @@ public final class SocksFunctions
                 ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
                 while (ipv4GroupMatch.find())
                 {
-                    addressBytes[i++] = Byte.parseByte(ipv4GroupMatch.group());
+                    addressBytes[i++] = (byte) Integer.parseInt(ipv4GroupMatch.group());
                 }
                 routeExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
@@ -144,7 +143,7 @@ public final class SocksFunctions
                 ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
                 while (ipv4GroupMatch.find())
                 {
-                    addressBytes[i++] = Byte.parseByte(ipv4GroupMatch.group());
+                    addressBytes[i++] =(byte) Integer.parseInt(ipv4GroupMatch.group());
                 }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
