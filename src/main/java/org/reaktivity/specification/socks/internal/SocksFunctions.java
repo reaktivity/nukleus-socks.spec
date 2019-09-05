@@ -31,9 +31,13 @@ public final class SocksFunctions
 {
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
     private static final Pattern IPV4_ADDRESS_PATTERN =
-        Pattern.compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+        Pattern.compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+            ".(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+            ".(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+            ".(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
+
     private static final Pattern IPV6_ADDRESS_PATTERN =
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
@@ -64,20 +68,13 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
-            int hit = 0;
-            while (ipv4GroupMatch.find() && hit <= 5)
+            if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
-                hit++;
-            }
-            if (hit == 4)
-            {
+                final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
                 final byte[] addressBytes = new byte[4];
-                int i = 0;
-                ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
-                while (ipv4GroupMatch.find())
+                for (int i=0; i < addressBytes.length; i++)
                 {
-                    addressBytes[i++] = (byte) Integer.parseInt(ipv4GroupMatch.group());
+                    addressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
                 routeExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
@@ -129,21 +126,13 @@ public final class SocksFunctions
         public SocksBeginExBuilder address(
             String address) throws UnknownHostException
         {
-            Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
-            int hit = 0;
-            while (ipv4GroupMatch.find() && hit <= 5)
+            if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
-                hit++;
-            }
-
-            if (hit == 4)
-            {
+                final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
                 final byte[] addressBytes = new byte[4];
-                int i = 0;
-                ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
-                while (ipv4GroupMatch.find())
+                for (int i=0; i < addressBytes.length; i++)
                 {
-                    addressBytes[i++] =(byte) Integer.parseInt(ipv4GroupMatch.group());
+                    addressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
