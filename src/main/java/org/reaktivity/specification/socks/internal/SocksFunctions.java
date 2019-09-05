@@ -65,11 +65,11 @@ public final class SocksFunctions
         public SocksRouteExBuilder address(
             String address) throws UnknownHostException
         {
-            if (IPV4_ADDRESS_MATCHER.get().reset(address).groupCount()==4)
+            if (IPV4_ADDRESS_MATCHER.get().reset(address).groupCount() == 4)
             {
                 final byte[] addressBytes = new byte[4];
-                Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
                 int i = 0;
+                Matcher ipv4GroupMatch = IPV4_ADDRESS_MATCHER.get().reset(address);
                 while (ipv4GroupMatch.find())
                 {
                     addressBytes[i++] = Byte.parseByte(ipv4GroupMatch.group());
