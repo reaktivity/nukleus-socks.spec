@@ -16,6 +16,7 @@
 package org.reaktivity.specification.socks.internal;
 
 import org.agrona.MutableDirectBuffer;
+
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
@@ -41,6 +42,7 @@ public final class SocksFunctions
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
+    private static byte[] ipv4Address;
 
     @Function
     public static SocksRouteExBuilder routeEx()
@@ -53,6 +55,12 @@ public final class SocksFunctions
     {
         return new SocksBeginExBuilder();
     }
+
+    private static void ipv4Intilization()
+    {
+        ipv4Address = new byte[4];
+    }
+
 
     public static final class SocksRouteExBuilder
     {
@@ -70,12 +78,13 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                final byte[] addressBytes = new byte[4];
-                for (int i=0; i < addressBytes.length; i++)
+                //final byte[] addressBytes = new byte[4];
+                ipv4Intilization();
+                for (int i=0; i < ipv4Address.length; i++)
                 {
-                    addressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    ipv4Address[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
-                routeExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
+                routeExRW.address(b -> b.ipv4Address(s -> s.set(ipv4Address)));
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
@@ -131,7 +140,7 @@ public final class SocksFunctions
                 final byte[] addressBytes = new byte[4];
                 for (int i=0; i < addressBytes.length; i++)
                 {
-                    addressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    addressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
             }
@@ -176,6 +185,12 @@ public final class SocksFunctions
         {
             return "socks";
         }
+    }
+
+    public static void getIpv4address()
+    {
+
+       ipv4Address = new byte[4];
     }
 
     private SocksFunctions()
