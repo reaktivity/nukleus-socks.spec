@@ -133,7 +133,7 @@ public final class SocksFunctions
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
                 final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
-                for (int i=0; i < ipv4AddressBytes.length; i++)
+                for (int i = 0; i < ipv4AddressBytes.length; i++)
                 {
                     ipv4AddressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
