@@ -15,9 +15,15 @@
  */
 package org.reaktivity.specification.socks.internal;
 
+import static java.util.Arrays.copyOfRange;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
+
+import java.math.BigInteger;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
@@ -32,13 +38,6 @@ import org.reaktivity.specification.socks.internal.types.OctetsFW;
 import org.reaktivity.specification.socks.internal.types.SocksAddressFW;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
-
-import java.math.BigInteger;
-
-import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
-import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
-import static java.util.Arrays.copyOfRange;
-import static org.junit.Assert.assertArrayEquals;
 
 public class SocksFunctionsTest
 {
