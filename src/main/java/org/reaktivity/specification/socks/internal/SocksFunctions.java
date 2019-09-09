@@ -42,7 +42,7 @@ public final class SocksFunctions
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
-    //private static byte[] ipv4Address;
+    private static final ThreadLocal<byte[]> IPV4_ADDRESS_IN_BYTE = ThreadLocal.withInitial(() -> new byte[4]);
 
     @Function
     public static SocksRouteExBuilder routeEx()
@@ -54,11 +54,6 @@ public final class SocksFunctions
     public static SocksBeginExBuilder beginEx()
     {
         return new SocksBeginExBuilder();
-    }
-
-    private static byte[] ipv4Intilization()
-    {
-        return new byte[4];
     }
 
 
@@ -78,13 +73,11 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                //final byte[] addressBytes = new byte[4];
-                byte[] ipv4Address = ipv4Intilization();
-                for (int i=0; i < ipv4Address.length; i++)
+                for (int i = 0; i < IPV4_ADDRESS_IN_BYTE.get().length; i++)
                 {
-                    ipv4Address[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    IPV4_ADDRESS_IN_BYTE.get()[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
-                routeExRW.address(b -> b.ipv4Address(s -> s.set(ipv4Address)));
+                routeExRW.address(b -> b.ipv4Address(s -> s.set(IPV4_ADDRESS_IN_BYTE.get())));
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
@@ -185,12 +178,6 @@ public final class SocksFunctions
         {
             return "socks";
         }
-    }
-
-    public static void getIpv4address()
-    {
-
-       ipv4Address = new byte[4];
     }
 
     private SocksFunctions()
