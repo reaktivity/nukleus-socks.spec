@@ -15,18 +15,17 @@
  */
 package org.reaktivity.specification.socks.internal;
 
-import org.agrona.MutableDirectBuffer;
+import java.net.UnknownHostException;
+import java.net.InetAddress;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.socks.internal.types.control.SocksRouteExFW;
 import org.reaktivity.specification.socks.internal.types.stream.SocksBeginExFW;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class SocksFunctions
 {
