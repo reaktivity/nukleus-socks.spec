@@ -73,11 +73,12 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                for (int i = 0; i < IPV4_ADDRESS_IN_BYTE.get().length; i++)
+                final byte[] ipv4AddressBytes = IPV4_ADDRESS_IN_BYTE.get();
+                for (int i = 0; i < ipv4AddressBytes.length; i++)
                 {
-                    IPV4_ADDRESS_IN_BYTE.get()[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    ipv4AddressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
-                routeExRW.address(b -> b.ipv4Address(s -> s.set(IPV4_ADDRESS_IN_BYTE.get())));
+                routeExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
@@ -130,12 +131,12 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                final byte[] addressBytes = new byte[4];
-                for (int i=0; i < addressBytes.length; i++)
+                final byte[] ipv4AddressBytes = IPV4_ADDRESS_IN_BYTE.get();
+                for (int i=0; i < ipv4AddressBytes.length; i++)
                 {
-                    addressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    ipv4AddressBytes[i] =(byte) Integer.parseInt(ipv4Matcher.group(i + 1));
                 }
-                beginExRW.address(b -> b.ipv4Address(s -> s.set(addressBytes)));
+                beginExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
