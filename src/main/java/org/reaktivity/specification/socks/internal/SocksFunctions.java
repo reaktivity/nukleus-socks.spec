@@ -15,8 +15,8 @@
  */
 package org.reaktivity.specification.socks.internal;
 
-import java.net.UnknownHostException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
