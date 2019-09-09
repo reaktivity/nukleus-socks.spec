@@ -15,7 +15,6 @@
  */
 package org.reaktivity.specification.socks.internal;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,11 +37,16 @@ public final class SocksFunctions
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
     private static final Pattern IPV6_ADDRESS_PATTERN =
-        Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
+        Pattern.compile("([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
+                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
+                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
+                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
     private static final ThreadLocal<byte[]> IPV4_ADDRESS_BYTES =
         ThreadLocal.withInitial(() -> new byte[4]);
+    private static final ThreadLocal<byte[]> IPV6_ADDRESS_BYTES =
+        ThreadLocal.withInitial(() -> new byte[16]);
 
     @Function
     public static SocksRouteExBuilder routeEx()
@@ -82,7 +86,13 @@ public final class SocksFunctions
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
-                final byte[] addressBytes = InetAddress.getByName(address).getAddress();
+                final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
+                final Matcher ipv6Matcher = IPV6_ADDRESS_MATCHER.get();
+                for (int i = 0; i < ipv6Matcher.groupCount(); i++)
+                {
+                    addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(0, 2), 16);
+                    addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(2, 4), 16);
+                }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -140,7 +150,13 @@ public final class SocksFunctions
             }
             else if (IPV6_ADDRESS_MATCHER.get().reset(address).matches())
             {
-                final byte[] addressBytes = InetAddress.getByName(address).getAddress();
+                final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
+                final Matcher ipv6Matcher = IPV6_ADDRESS_MATCHER.get();
+                for (int i = 0; i < ipv6Matcher.groupCount(); i++)
+                {
+                    addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(0, 2), 16);
+                    addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(2, 4), 16);
+                }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
