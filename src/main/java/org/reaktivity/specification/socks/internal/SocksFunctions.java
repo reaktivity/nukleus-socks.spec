@@ -42,7 +42,7 @@ public final class SocksFunctions
         Pattern.compile("([0-9a-f]{1,4}:){7}([0-9a-f]){1,4}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
-    private static final ThreadLocal<byte[]> IPV4_ADDRESS_IN_BYTE =
+    private static final ThreadLocal<byte[]> IPV4_ADDRESS_BYTES =
         ThreadLocal.withInitial(() -> new byte[4]);
 
     @Function
@@ -74,7 +74,7 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                final byte[] ipv4AddressBytes = IPV4_ADDRESS_IN_BYTE.get();
+                final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
                 for (int i = 0; i < ipv4AddressBytes.length; i++)
                 {
                     ipv4AddressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
@@ -132,7 +132,7 @@ public final class SocksFunctions
             if (IPV4_ADDRESS_MATCHER.get().reset(address).matches())
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
-                final byte[] ipv4AddressBytes = IPV4_ADDRESS_IN_BYTE.get();
+                final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
                 for (int i=0; i < ipv4AddressBytes.length; i++)
                 {
                     ipv4AddressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
