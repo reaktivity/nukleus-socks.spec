@@ -90,8 +90,20 @@ public final class SocksFunctions
                 final Matcher ipv6Matcher = IPV6_ADDRESS_MATCHER.get();
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
-                    addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(0, 2), 16);
-                    addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(2, 4), 16);
+                    String ipv6Group = ipv6Matcher.group(i + 1);
+                    int ipv6GroupLength = ipv6Group.length();
+                    if  (ipv6GroupLength < 3)
+                    {
+                        addressBytes[2 * i] = 0;
+                        addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
+                    }
+                    else
+                    {
+                        int mid = ipv6GroupLength/2;
+                        addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
+                        addressBytes[2 * i + 1] =
+                            (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
+                    }
                 }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
@@ -154,8 +166,20 @@ public final class SocksFunctions
                 final Matcher ipv6Matcher = IPV6_ADDRESS_MATCHER.get();
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
-                    addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(0, 2), 16);
-                    addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Matcher.group(i + 1).substring(2, 4), 16);
+                    String ipv6Group = ipv6Matcher.group(i + 1);
+                    int ipv6GroupLength = ipv6Group.length();
+                    if  (ipv6GroupLength < 3)
+                    {
+                        addressBytes[2 * i] = 0;
+                        addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
+                    }
+                    else
+                    {
+                        int mid = ipv6GroupLength/2;
+                        addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
+                        addressBytes[2 * i + 1] =
+                            (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
+                    }
                 }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }

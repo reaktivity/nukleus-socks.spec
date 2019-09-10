@@ -155,7 +155,6 @@ public class SocksFunctionsTest
         assertEquals(8080, routeEx.port());
     }
 
-    @Ignore
     @Test
     public void shouldBuildRouteExWithIpv6AddressLeadingZeros() throws Exception
     {
@@ -281,14 +280,14 @@ public class SocksFunctionsTest
         assertEquals(8080, beginEx.port());
     }
 
-    @Ignore
     @Test
     public void shouldBuildBeginExWithIpv6AddressLeadingZeros() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-                                     .address("2001:0db8:85a3:0:0:8a2e:0370:34")
-                                     .port(8080)
-                                     .build();
+            .typeId(0)
+            .address("2001:0db8:85a3:0:0:8a2e:370:34")
+            .port(8080)
+            .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
