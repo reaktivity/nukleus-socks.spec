@@ -155,6 +155,47 @@ public class SocksFunctionsTest
     }
 
     @Test
+    public void shouldBuildRouteExWithIpv6AddressLeadingZeros() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = routeEx.address();
+
+        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        OctetsFW ipv6Address = address.ipv6Address();
+        assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
+    public void shouldBuildRouteExWithIpv6AddressZeroCompression1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+            .address("2001:0db8:85a3::8a2e:0370:7334")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = routeEx.address();
+
+        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        OctetsFW ipv6Address = address.ipv6Address();
+        assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+
+    @Test
     public void shouldBuildBeginExWithIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
