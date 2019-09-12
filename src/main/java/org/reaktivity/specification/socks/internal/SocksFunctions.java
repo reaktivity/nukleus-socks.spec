@@ -41,6 +41,11 @@ public final class SocksFunctions
                         "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
                         "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
                         "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})");
+    private static final Pattern IPV6_ADDRESS_FIRSTHALF =
+        Pattern.compile("(?:([0-9a-f]{1,4})\\:?){0,1}(?:([0-9a-f]{1,4})\\:?){0,1}"  +
+            "(?:([0-9a-f]{1,4})\\:?){0,1}(?:([0-9a-f]{1,4})\\:?){0,1}" +
+            "(?:([0-9a-f]{1,4})\\:?){0,1}(?:([0-9a-f]{1,4})\\:?){0,1}" +
+            "([0-9a-f]{1,4}){0,1}");
     private static final ThreadLocal<Matcher> IPV6_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_ADDRESS_PATTERN.matcher(""));
     private static final ThreadLocal<byte[]> IPV4_ADDRESS_BYTES =
