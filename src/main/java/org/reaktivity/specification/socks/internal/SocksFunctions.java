@@ -274,7 +274,6 @@ public final class SocksFunctions
                 endIndex--;
             }
         }
-
         for (int i = startIndex; i < endIndex + 1; i++)
         {
             addressBytes[2*i] = 0;
