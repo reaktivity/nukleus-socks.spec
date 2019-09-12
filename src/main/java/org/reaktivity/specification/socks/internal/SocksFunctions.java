@@ -107,86 +107,14 @@ public final class SocksFunctions
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
                     String ipv6Group = ipv6Matcher.group(i + 1);
-                    int ipv6GroupLength = ipv6Group.length();
-                    if  (ipv6GroupLength < 3)
-                    {
-                        addressBytes[2 * i] = 0;
-                        addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                    }
-                    else
-                    {
-                        int mid = ipv6GroupLength/2;
-                        addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                        addressBytes[2 * i + 1] =
-                            (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                    }
+                    fillInBytes(addressBytes, i, ipv6Group);
                 }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
-                ipv6Matcher.matches();
-                int startIndex = 0;
-                int endIndex = 7;
-                for (int i = 0; i < 7; i++)
-                {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    if (ipv6Group == null)
-                    {
-                        startIndex = i;
-                        break;
-                    }
-                    else
-                    {
-                        int ipv6GroupLength = ipv6Group.length();
-                        if  (ipv6GroupLength < 3)
-                        {
-                            addressBytes[2 * i] = 0;
-                            addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                        }
-                        else
-                        {
-                            int mid = ipv6GroupLength/2;
-                            addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                            addressBytes[2 * i + 1] =
-                                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                        }
-                    }
-                }
-                for (int i = 14; i > 7; i--)
-                {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    if (ipv6Group == null)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        int ipv6GroupLength = ipv6Group.length();
-                        if  (ipv6GroupLength < 3)
-                        {
-                            addressBytes[2 * endIndex] = 0;
-                            addressBytes[2 * endIndex + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                        }
-                        else
-                        {
-                            int mid = ipv6GroupLength/2;
-                            addressBytes[2 * endIndex] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                            addressBytes[2 * endIndex + 1] =
-                                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                        }
-                        endIndex--;
-                    }
-                }
-
-                for (int i = startIndex; i < endIndex + 1; i++)
-                {
-                    addressBytes[2 * i] = 0;
-                    addressBytes[2*i + 1] = 0;
-                }
-
+                fillInIpv6HexCompressed(address, addressBytes);
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -249,85 +177,14 @@ public final class SocksFunctions
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
                     String ipv6Group = ipv6Matcher.group(i + 1);
-                    int ipv6GroupLength = ipv6Group.length();
-                    if  (ipv6GroupLength < 3)
-                    {
-                        addressBytes[2 * i] = 0;
-                        addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                    }
-                    else
-                    {
-                        int mid = ipv6GroupLength/2;
-                        addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                        addressBytes[2 * i + 1] =
-                            (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                    }
+                    fillInBytes(addressBytes, i, ipv6Group);
                 }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
-                ipv6Matcher.matches();
-                int startIndex = 0;
-                int endIndex = 7;
-                for (int i = 0; i < 7; i++)
-                {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    if (ipv6Group == null)
-                    {
-                        startIndex = i;
-                        break;
-                    }
-                    else
-                    {
-                        int ipv6GroupLength = ipv6Group.length();
-                        if  (ipv6GroupLength < 3)
-                        {
-                            addressBytes[2 * i] = 0;
-                            addressBytes[2 * i + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                        }
-                        else
-                        {
-                            int mid = ipv6GroupLength/2;
-                            addressBytes[2 * i] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                            addressBytes[2 * i + 1] =
-                                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                        }
-                    }
-                }
-                for (int i = 14; i > 7; i--)
-                {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    if (ipv6Group == null)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        int ipv6GroupLength = ipv6Group.length();
-                        if  (ipv6GroupLength < 3)
-                        {
-                            addressBytes[2 * endIndex] = 0;
-                            addressBytes[2 * endIndex + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-                        }
-                        else
-                        {
-                            int mid = ipv6GroupLength/2;
-                            addressBytes[2 * endIndex] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-                            addressBytes[2 * endIndex + 1] =
-                                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
-                        }
-                        endIndex--;
-                    }
-                }
-
-                for (int i = startIndex; i < endIndex + 1; i++)
-                {
-                    addressBytes[2 * i] = 0;
-                    addressBytes[2*i + 1] = 0;
-                }
+                fillInIpv6HexCompressed(address, addressBytes);
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -365,6 +222,63 @@ public final class SocksFunctions
         public String getPrefixName()
         {
             return "socks";
+        }
+    }
+
+    public static void fillInBytes(byte[] addressBytes, int index, String ipv6Group)
+    {
+        int ipv6GroupLength = ipv6Group.length();
+        if  (ipv6GroupLength < 3)
+        {
+            addressBytes[2 * index] = 0;
+            addressBytes[2 * index + 1] = (byte) Integer.parseInt(ipv6Group, 16);
+        }
+        else
+        {
+            int mid = ipv6GroupLength/2;
+            addressBytes[2 * index] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
+            addressBytes[2 * index + 1] =
+                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
+        }
+    }
+
+    public static void fillInIpv6HexCompressed(String address, byte[] addressBytes)
+    {
+        final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
+        ipv6Matcher.matches();
+        int startIndex = 0;
+        int endIndex = 7;
+        for (int i = 0; i < 7; i++)
+        {
+            String ipv6Group = ipv6Matcher.group(i + 1);
+            if (ipv6Group == null)
+            {
+                startIndex = i;
+                break;
+            }
+            else
+            {
+                fillInBytes(addressBytes, i, ipv6Group);
+            }
+        }
+        for (int i = 14; i > 7; i--)
+        {
+            String ipv6Group = ipv6Matcher.group(i + 1);
+            if (ipv6Group == null)
+            {
+                break;
+            }
+            else
+            {
+                fillInBytes(addressBytes, endIndex, ipv6Group);
+                endIndex--;
+            }
+        }
+
+        for (int i = startIndex; i < endIndex + 1; i++)
+        {
+            addressBytes[2*i] = 0;
+            addressBytes[2*i + 1] = 0;
         }
     }
 
