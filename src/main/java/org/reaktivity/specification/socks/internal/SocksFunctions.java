@@ -16,6 +16,7 @@
 package org.reaktivity.specification.socks.internal;
 
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -174,6 +175,7 @@ public final class SocksFunctions
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_STD_ADDRESS_MATCHER.get();
+                Arrays.fill(addressBytes, (byte) 0);
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
                     String ipv6Group = ipv6Matcher.group(i + 1);
@@ -225,35 +227,32 @@ public final class SocksFunctions
         }
     }
 
-    public static void fillInBytes(byte[] addressBytes, int index, String ipv6Group)
+    private static void fillInBytes(
+        byte[] addressBytes,
+        int index,
+        String ipv6Group)
     {
-        int ipv6GroupLength = ipv6Group.length();
-        if  (ipv6GroupLength < 3)
+        index = 2 * index + 1;
+        for (int i = ipv6Group.length(); i > 0; i-=2)
         {
-            addressBytes[2 * index] = 0;
-            addressBytes[2 * index + 1] = (byte) Integer.parseInt(ipv6Group, 16);
-        }
-        else
-        {
-            int mid = ipv6GroupLength/2;
-            addressBytes[2 * index] = (byte) Integer.parseInt(ipv6Group.substring(0, mid), 16);
-            addressBytes[2 * index + 1] =
-                (byte) Integer.parseInt(ipv6Group.substring(mid, ipv6GroupLength), 16);
+            addressBytes[index--] = (byte) Integer.parseInt(
+                ipv6Group.substring(i - 2 > 0 ? i - 2 : 0, i), 16);
         }
     }
 
-    public static void fillInIpv6HexCompressed(String address, byte[] addressBytes)
+    private static void fillInIpv6HexCompressed(
+        String address,
+        byte[] addressBytes)
     {
         final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
         ipv6Matcher.matches();
-        int startIndex = 0;
         int endIndex = 7;
+        Arrays.fill(addressBytes, (byte) 0);
         for (int i = 0; i < 7; i++)
         {
             String ipv6Group = ipv6Matcher.group(i + 1);
             if (ipv6Group == null)
             {
-                startIndex = i;
                 break;
             }
             else
@@ -273,11 +272,6 @@ public final class SocksFunctions
                 fillInBytes(addressBytes, endIndex, ipv6Group);
                 endIndex--;
             }
-        }
-        for (int i = startIndex; i < endIndex + 1; i++)
-        {
-            addressBytes[2*i] = 0;
-            addressBytes[2*i + 1] = 0;
         }
     }
 
