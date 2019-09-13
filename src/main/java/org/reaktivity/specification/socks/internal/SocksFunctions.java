@@ -233,11 +233,9 @@ public final class SocksFunctions
         String ipv6Group)
     {
         index = 2 * index + 1;
-        for (int i = ipv6Group.length(); i > 0; i-=2)
-        {
-            addressBytes[index--] = parseByte(
-                ipv6Group.substring(i - 2 > 0 ? i - 2 : 0, i), 16);
-        }
+        Short res = parseShort(ipv6Group, 16);
+        addressBytes[index--] = (byte) (res & 0xff);
+        addressBytes[index] = (byte) ((res >> 8) & 0xff);
     }
 
     private static void fillInIpv6HexCompressed(
@@ -282,6 +280,15 @@ public final class SocksFunctions
         assert s.length() > 0 && s.length() <= 3;
         int i = Integer.parseInt(s, radix);
         return (byte) i;
+    }
+
+    private static short parseShort(
+        String s,
+        int radix)
+    {
+        assert s.length() > 0 && s.length() <= 4;
+        int i = Integer.parseInt(s, radix);
+        return (short) i;
     }
 
     private SocksFunctions()
