@@ -97,7 +97,7 @@ public final class SocksFunctions
                 final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
                 for (int i = 0; i < ipv4AddressBytes.length; i++)
                 {
-                    ipv4AddressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    ipv4AddressBytes[i] = parseByte(ipv4Matcher.group(i + 1), 10);
                 }
                 routeExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
@@ -167,7 +167,7 @@ public final class SocksFunctions
                 final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
                 for (int i = 0; i < ipv4AddressBytes.length; i++)
                 {
-                    ipv4AddressBytes[i] = (byte) Integer.parseInt(ipv4Matcher.group(i + 1));
+                    ipv4AddressBytes[i] = parseByte(ipv4Matcher.group(i + 1), 10);
                 }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
@@ -235,7 +235,7 @@ public final class SocksFunctions
         index = 2 * index + 1;
         for (int i = ipv6Group.length(); i > 0; i-=2)
         {
-            addressBytes[index--] = (byte) Integer.parseInt(
+            addressBytes[index--] = parseByte(
                 ipv6Group.substring(i - 2 > 0 ? i - 2 : 0, i), 16);
         }
     }
@@ -273,6 +273,15 @@ public final class SocksFunctions
                 endIndex--;
             }
         }
+    }
+
+    private static byte parseByte(
+        String s,
+        int radix)
+    {
+        assert s.length() > 0 && s.length() <= 3;
+        int i = Integer.parseInt(s, radix);
+        return (byte) i;
     }
 
     private SocksFunctions()
