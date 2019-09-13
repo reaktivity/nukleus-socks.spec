@@ -252,10 +252,7 @@ public final class SocksFunctions
             {
                 break;
             }
-            else
-            {
-                fillInBytes(addressBytes, 2 * i, ipv6Group);
-            }
+            fillInBytes(addressBytes, 2 * i, ipv6Group);
         }
         for (int i = 14; i > 7; i--)
         {
@@ -264,11 +261,7 @@ public final class SocksFunctions
             {
                 break;
             }
-            else
-            {
-                fillInBytes(addressBytes, 2 * endIndex, ipv6Group);
-                endIndex--;
-            }
+            fillInBytes(addressBytes, 2 * (endIndex--), ipv6Group);
         }
     }
 
