@@ -108,7 +108,7 @@ public final class SocksFunctions
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
                     String ipv6Group = ipv6Matcher.group(i + 1);
-                    fillInBytes(addressBytes, i, ipv6Group);
+                    fillInBytes(addressBytes, 2 * i, ipv6Group);
                 }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
@@ -179,7 +179,7 @@ public final class SocksFunctions
                 for (int i = 0; i < ipv6Matcher.groupCount(); i++)
                 {
                     String ipv6Group = ipv6Matcher.group(i + 1);
-                    fillInBytes(addressBytes, i, ipv6Group);
+                    fillInBytes(addressBytes, 2 * i, ipv6Group);
                 }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
