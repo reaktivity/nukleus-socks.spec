@@ -32,16 +32,16 @@ public final class SocksFunctions
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
     private static final Pattern IPV4_ADDRESS_PATTERN =
         Pattern.compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
     private static final Pattern IPV6_STD_ADDRESS_PATTERN =
         Pattern.compile("([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
-                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
-                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
-                        "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})");
+            "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
+            "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})\\:" +
+            "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})");
     private static final Pattern IPV6_HEX_COMPRESSED_VALIDATE_PATTERN =
         Pattern.compile("^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)" +
             "::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
@@ -95,9 +95,9 @@ public final class SocksFunctions
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
                 final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
-                for (int i = 0; i < ipv4AddressBytes.length; i++)
+                for (int group = 1; group < ipv4AddressBytes.length + 1; group++)
                 {
-                    ipv4AddressBytes[i] = parseByte(ipv4Matcher.group(i + 1), 10);
+                    ipv4AddressBytes[group - 1] = parseByte(ipv4Matcher.group(group), 10);
                 }
                 routeExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
@@ -105,10 +105,10 @@ public final class SocksFunctions
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_STD_ADDRESS_MATCHER.get();
-                for (int i = 0; i < ipv6Matcher.groupCount(); i++)
+                for (int group = 1; group < ipv6Matcher.groupCount() + 1; group++)
                 {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    fillInBytes(addressBytes, 2 * i, ipv6Group);
+                    String ipv6Group = ipv6Matcher.group(group);
+                    fillInBytes(addressBytes, 2 * (group - 1), ipv6Group);
                 }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
@@ -165,9 +165,9 @@ public final class SocksFunctions
             {
                 final Matcher ipv4Matcher = IPV4_ADDRESS_MATCHER.get();
                 final byte[] ipv4AddressBytes = IPV4_ADDRESS_BYTES.get();
-                for (int i = 0; i < ipv4AddressBytes.length; i++)
+                for (int group = 1; group < ipv4AddressBytes.length + 1; group++)
                 {
-                    ipv4AddressBytes[i] = parseByte(ipv4Matcher.group(i + 1), 10);
+                    ipv4AddressBytes[group - 1] = parseByte(ipv4Matcher.group(group), 10);
                 }
                 beginExRW.address(b -> b.ipv4Address(s -> s.set(ipv4AddressBytes)));
             }
@@ -176,10 +176,10 @@ public final class SocksFunctions
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_STD_ADDRESS_MATCHER.get();
                 Arrays.fill(addressBytes, (byte) 0);
-                for (int i = 0; i < ipv6Matcher.groupCount(); i++)
+                for (int group = 1; group < ipv6Matcher.groupCount() + 1; group++)
                 {
-                    String ipv6Group = ipv6Matcher.group(i + 1);
-                    fillInBytes(addressBytes, 2 * i, ipv6Group);
+                    String ipv6Group = ipv6Matcher.group(group);
+                    fillInBytes(addressBytes, 2 * (group - 1), ipv6Group);
                 }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
