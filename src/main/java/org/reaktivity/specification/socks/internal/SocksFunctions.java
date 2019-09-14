@@ -243,25 +243,25 @@ public final class SocksFunctions
     {
         final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
         ipv6Matcher.matches();
-        int endIndex = 7;
+        int group = 1;
         Arrays.fill(addressBytes, (byte) 0);
-        for (int i = 0; i < 7; i++)
+        for (; group < 8; group++)
         {
-            String ipv6Group = ipv6Matcher.group(i + 1);
-            if (ipv6Group == null)
+            String groupHex = ipv6Matcher.group(group);
+            if (groupHex == null)
             {
                 break;
             }
-            fillInBytes(addressBytes, 2 * i, ipv6Group);
+            fillInBytes(addressBytes, 2 * (group - 1), groupHex);
         }
-        for (int i = 14; i > 7; i--)
+        for (group = 15; group > 8; group--)
         {
-            String ipv6Group = ipv6Matcher.group(i + 1);
-            if (ipv6Group == null)
+            String groupHex = ipv6Matcher.group(group);
+            if (groupHex == null)
             {
                 break;
             }
-            fillInBytes(addressBytes, 2 * (endIndex--), ipv6Group);
+            fillInBytes(addressBytes, 2 * (group - 8), groupHex);
         }
     }
 
