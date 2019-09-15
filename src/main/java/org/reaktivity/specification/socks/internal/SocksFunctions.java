@@ -112,10 +112,12 @@ public final class SocksFunctions
                 }
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
-            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
+            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
+                IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                fillInIpv6HexCompressed(address, addressBytes);
+                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
+                fillInIpv6HexCompressed(ipv6Matcher, addressBytes);
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -183,10 +185,12 @@ public final class SocksFunctions
                 }
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
-            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
+            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
+                IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                fillInIpv6HexCompressed(address, addressBytes);
+                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
+                fillInIpv6HexCompressed(ipv6Matcher, addressBytes);
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -238,11 +242,9 @@ public final class SocksFunctions
     }
 
     private static void fillInIpv6HexCompressed(
-        String address,
+        Matcher ipv6Matcher,
         byte[] addressBytes)
     {
-        final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get().reset(address);
-        ipv6Matcher.matches();
         int group = 1;
         Arrays.fill(addressBytes, (byte) 0);
         for (; group < 8; group++)
