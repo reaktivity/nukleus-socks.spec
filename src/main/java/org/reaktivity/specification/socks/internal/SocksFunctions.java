@@ -44,7 +44,7 @@ public final class SocksFunctions
                         "([0-9a-f]{1,4})\\:([0-9a-f]{1,4})");
     private static final Pattern IPV6_HEX_COMPRESSED_VALIDATE_PATTERN =
         Pattern.compile("^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)" +
-            "::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
+                        "::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
     private static final Pattern IPV6_HEX_COMPRESSED_MATCH_PATTERN =
         Pattern.compile("(?:([0-9a-f]{1,4})\\:?)?(?:([0-9a-f]{1,4})\\:?)?" +
                         "(?:([0-9a-f]{1,4})\\:?)?(?:([0-9a-f]{1,4})\\:?)?" +
