@@ -1,4 +1,4 @@
-# Socks Nukleus Specification
+# SOCKS Nukleus Specification
 
 [![Build Status][build-status-image]][build-status]
 [![Code Coverage][code-coverage-image]][code-coverage]
