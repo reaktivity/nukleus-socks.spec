@@ -32,9 +32,9 @@ public final class SocksFunctions
     private static final int MAX_BUFFER_SIZE = 1024 * 8;
     private static final Pattern IPV4_ADDRESS_PATTERN =
         Pattern.compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
-            "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" +
+                        "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     private static final ThreadLocal<Matcher> IPV4_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV4_ADDRESS_PATTERN.matcher(""));
     private static final Pattern IPV6_STD_ADDRESS_PATTERN =
