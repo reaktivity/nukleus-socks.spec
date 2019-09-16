@@ -262,7 +262,6 @@ public class SocksFunctionsTest
                                      .address("2::4")
                                      .port(8080)
                                      .build();
-
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
