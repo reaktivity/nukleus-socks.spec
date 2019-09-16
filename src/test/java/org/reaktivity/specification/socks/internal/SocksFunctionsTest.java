@@ -20,6 +20,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
+import static org.reaktivity.specification.socks.internal.SocksFunctions.parseByte;
+import static org.reaktivity.specification.socks.internal.SocksFunctions.parseShort;
 import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
 import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
 
@@ -440,5 +442,17 @@ public class SocksFunctionsTest
                                      ipv6Address.offset(),
                                      ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
+    }
+
+    @Test(expected = AssertionError.class)
+    public void shouldThrowExceptionParseByteInvalidLength() throws Exception
+    {
+        parseByte("0001", 10);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void shouldThrowExceptionParseShortInvalidLength() throws Exception
+    {
+        parseShort("00001", 10);
     }
 }

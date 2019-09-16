@@ -251,7 +251,7 @@ public final class SocksFunctions
         }
     }
 
-    private static byte parseByte(
+    public static byte parseByte(
         String s,
         int radix)
     {
@@ -259,7 +259,7 @@ public final class SocksFunctions
         return (byte) Integer.parseInt(s, radix);
     }
 
-    private static short parseShort(
+    public static short parseShort(
         String s,
         int radix)
     {
