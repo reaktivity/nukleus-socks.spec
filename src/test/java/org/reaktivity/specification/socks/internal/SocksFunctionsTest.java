@@ -445,33 +445,14 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = AssertionError.class)
-    public void shouldThrowExceptionParseByteInvalidLength() throws Exception
+    public void shouldNotParseByteInvalidLength() throws Exception
     {
-        parseByte("0001", 10);
+        parseByte("00001", 10);
     }
 
     @Test(expected = AssertionError.class)
-    public void shouldThrowExceptionParseByteInvalidLength1() throws Exception
+    public void shouldNotParseShortInvalidLength() throws Exception
     {
-        parseByte("", 10);
-    }
-
-    @Test
-    public void shouldThrowExceptionParseShortInvalidLength() throws Exception
-    {
-        try
-        {
-            short i = parseShort("00001", 10);
-        }
-        catch (AssertionError err)
-        {
-            assertEquals("Invalid String Length", err.getMessage());
-        }
-    }
-
-    @Test(expected = AssertionError.class)
-    public void shouldThrowExceptionParseShortInvalidLength1() throws Exception
-    {
-        parseShort("", 10);
+        parseShort("00001", 10);
     }
 }
