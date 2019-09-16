@@ -255,7 +255,7 @@ public final class SocksFunctions
         String s,
         int radix)
     {
-        assert s.length() > 0 && s.length() <= 3;
+        assert s.length() > 0 && s.length() <= 3 : "Invalid String Length";
         return (byte) Integer.parseInt(s, radix);
     }
 
@@ -263,7 +263,7 @@ public final class SocksFunctions
         String s,
         int radix)
     {
-        assert s.length() > 0 && s.length() <= 4;
+        assert s.length() > 0 && s.length() <= 4 : "Invalid String Length";
         return (short) Integer.parseInt(s, radix);
     }
 
