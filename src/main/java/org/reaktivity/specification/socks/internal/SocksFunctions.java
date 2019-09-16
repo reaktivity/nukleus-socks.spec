@@ -105,18 +105,15 @@ public final class SocksFunctions
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_STD_ADDRESS_MATCHER.get();
-                for (int group = 1; group < ipv6Matcher.groupCount() + 1; group++)
-                {
-                    String groupHex = ipv6Matcher.group(group);
-                    fillInBytes(addressBytes, 2 * (group - 1), groupHex);
-                }
+                encodeStandardIpv6AddressBytes(ipv6Matcher, addressBytes);
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
                 IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                fillInIpv6HexCompressed(IPV6_HEX_COMPRESSED_MATCHER.get(), addressBytes);
+                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
+                encodeCompressedIpv6AddressBytes(ipv6Matcher, addressBytes);
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -176,19 +173,15 @@ public final class SocksFunctions
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_STD_ADDRESS_MATCHER.get();
-                Arrays.fill(addressBytes, (byte) 0);
-                for (int group = 1; group < ipv6Matcher.groupCount() + 1; group++)
-                {
-                    String groupHex = ipv6Matcher.group(group);
-                    fillInBytes(addressBytes, 2 * (group - 1), groupHex);
-                }
+                encodeStandardIpv6AddressBytes(ipv6Matcher, addressBytes);
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
                 IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
-                fillInIpv6HexCompressed(IPV6_HEX_COMPRESSED_MATCHER.get(), addressBytes);
+                final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
+                encodeCompressedIpv6AddressBytes(ipv6Matcher, addressBytes);
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
             else
@@ -234,12 +227,12 @@ public final class SocksFunctions
         int index,
         String groupHex)
     {
-        short res = parseShort(groupHex, 16);
-        addressBytes[index++] = (byte) ((res >> 8) & 0xff);
-        addressBytes[index] = (byte) (res & 0xff);
+        short groupBytes = parseShort(groupHex, 16);
+        addressBytes[index++] = (byte) ((groupBytes >> 8) & 0xff);
+        addressBytes[index] = (byte) (groupBytes & 0xff);
     }
 
-    private static void fillInIpv6HexCompressed(
+    private static void encodeCompressedIpv6AddressBytes(
         Matcher ipv6Matcher,
         byte[] addressBytes)
     {
@@ -278,6 +271,17 @@ public final class SocksFunctions
     {
         assert s.length() > 0 && s.length() <= 4;
         return (short) Integer.parseInt(s, radix);
+    }
+
+    private static void encodeStandardIpv6AddressBytes(
+        Matcher ipv6Matcher,
+        byte[] addressBytes)
+    {
+        for (int group = 1; group < ipv6Matcher.groupCount() + 1; group++)
+        {
+            String groupHex = ipv6Matcher.group(group);
+            fillInBytes(addressBytes, 2 * (group - 1), groupHex);
+        }
     }
 
     private SocksFunctions()
