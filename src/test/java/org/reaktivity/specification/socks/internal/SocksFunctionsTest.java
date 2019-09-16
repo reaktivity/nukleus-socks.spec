@@ -215,6 +215,47 @@ public class SocksFunctionsTest
     }
 
     @Test
+    public void shouldBuildRouteExWithIpv6AddressZeroCompression3() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("2001:0db8:85a3:0:0:8a2e:0370::")
+                                     .port(8080)
+                                     .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = routeEx.address();
+
+        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        OctetsFW ipv6Address = address.ipv6Address();
+        assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700000", 16).toByteArray(),
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
+    public void shouldBuildRouteExWithIpv6AddressZeroCompression4() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("::2:3:4:5:6:7:8")
+                                     .port(8080)
+                                     .build();
+
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = routeEx.address();
+
+        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        OctetsFW ipv6Address = address.ipv6Address();
+        assertArrayEquals(new byte[] { 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8 },
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
     public void shouldBuildRouteExWithIpv6LoopbackAddress() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
