@@ -18,12 +18,10 @@ package org.reaktivity.specification.socks.internal;
 import static java.util.Arrays.copyOfRange;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
 import static org.reaktivity.specification.socks.internal.SocksFunctions.parseByte;
 import static org.reaktivity.specification.socks.internal.SocksFunctions.parseShort;
-import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_DOMAIN_NAME;
 import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
 import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
 
@@ -59,9 +57,9 @@ public class SocksFunctionsTest
     public void shouldLoadFunctions() throws Exception
     {
         String expressionText = "${socks:routeEx()" +
-                                       ".address(\"example.com\")" +
-                                       ".port(8080)" +
-                                       ".build()}";
+            ".address(\"example.com\")" +
+            ".port(8080)" +
+            ".build()}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, String.class);
         String routeExBytes = (String) expression.getValue(ctx);
 
@@ -139,27 +137,11 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV4_ADDRESS, address.kind());
         OctetsFW ipv4Address = address.ipv4Address();
-        assertArrayEquals(new byte[] { 127, 0, 0, 1 },
+        assertArrayEquals(new byte[]{127, 0, 0, 1},
             copyOfRange(ipv4Address.buffer().byteArray(),
-                        ipv4Address.offset(),
-                        ipv4Address.limit()));
+                ipv4Address.offset(),
+                ipv4Address.limit()));
         assertEquals(8080, routeEx.port());
-    }
-
-    @Test
-    public void shouldNotBuildRouteExWithInvalidIpv4Address() throws Exception
-    {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("127.0.0.1001")
-                                     .port(8080)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = routeEx.address();
-
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
     }
 
     @Test
@@ -176,28 +158,11 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV4_ADDRESS, address.kind());
         OctetsFW ipv4Address = address.ipv4Address();
-        assertArrayEquals(new byte[] { 127, 0, 0, 1 },
+        assertArrayEquals(new byte[]{127, 0, 0, 1},
             copyOfRange(ipv4Address.buffer().byteArray(),
-                        ipv4Address.offset(),
-                        ipv4Address.limit()));
+                ipv4Address.offset(),
+                ipv4Address.limit()));
         assertEquals(8080, beginEx.port());
-    }
-
-    @Test
-    public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
-    {
-        byte[] bytes = SocksFunctions.beginEx()
-                                     .typeId(0)
-                                     .address("127.0.0.1.1")
-                                     .port(8080)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = beginEx.address();
-
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
     }
 
     @Test
@@ -215,41 +180,9 @@ public class SocksFunctionsTest
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
             copyOfRange(ipv6Address.buffer().byteArray(),
-                        ipv6Address.offset(),
-                        ipv6Address.limit()));
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
-    }
-
-    @Test
-    public void shouldNotBuildRouteExWithIpv6Address() throws Exception
-    {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
-                                     .port(8080)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = routeEx.address();
-
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
-    }
-
-    @Test
-    public void shouldNotBuildRouteExWithIpv6Address1() throws Exception
-    {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:5")
-                                     .port(8080)
-                                     .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = routeEx.address();
-
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
     }
 
     @Test
@@ -266,9 +199,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700034", 16).toByteArray(),
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
     }
 
@@ -286,9 +219,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010000000000000000000000007334", 16).toByteArray(),
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
     }
 
@@ -306,9 +239,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a1000000008a2e03707334", 16).toByteArray(),
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
     }
 
@@ -345,7 +278,7 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[] { 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8 },
+        assertArrayEquals(new byte[]{0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8},
             copyOfRange(ipv6Address.buffer().byteArray(),
                 ipv6Address.offset(),
                 ipv6Address.limit()));
@@ -365,10 +298,10 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[] { 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4 },
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+        assertArrayEquals(new byte[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
     }
 
@@ -386,9 +319,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[16],
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, routeEx.port());
     }
 
@@ -407,9 +340,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -428,9 +361,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700034", 16).toByteArray(),
-                          copyOfRange(ipv6Address.buffer().byteArray(),
-                                      ipv6Address.offset(),
-                                      ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -449,9 +382,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -470,9 +403,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010000000000000000000000007334", 16).toByteArray(),
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -490,10 +423,10 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4 },
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+        assertArrayEquals(new byte[]{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -511,10 +444,10 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+        assertArrayEquals(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -533,9 +466,9 @@ public class SocksFunctionsTest
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[16],
-                         copyOfRange(ipv6Address.buffer().byteArray(),
-                                     ipv6Address.offset(),
-                                     ipv6Address.limit()));
+            copyOfRange(ipv6Address.buffer().byteArray(),
+                ipv6Address.offset(),
+                ipv6Address.limit()));
         assertEquals(8080, beginEx.port());
     }
 
@@ -551,7 +484,54 @@ public class SocksFunctionsTest
         parseShort("00001", 10);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildRouteExWithInvalidDomainName() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("-example.com")
+                                     .port(8080)
+                                     .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildBeginExWithInvalidDomainName() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+                                     .typeId(0)
+                                     .address("-example.com")
+                                     .port(8080)
+                                     .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildRouteExWithInvalidIpv4Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("127.0.0.1001")
+                                     .port(8080)
+                                     .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+                                     .typeId(0)
+                                     .address("127.0.0.1.1")
+                                     .port(8080)
+                                     .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildRouteExWithIpv6Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
+                                     .port(8080)
+                                     .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildBeginExWithInvalidIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
@@ -559,16 +539,9 @@ public class SocksFunctionsTest
                                      .address("::73344")
                                      .port(8080)
                                      .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = beginEx.address();
-
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildBeginExWithInvalidIpv6Address1() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
@@ -576,12 +549,14 @@ public class SocksFunctionsTest
                                      .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
                                      .port(8080)
                                      .build();
-        DirectBuffer buffer = new UnsafeBuffer(bytes);
-        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
-        SocksAddressFW address = beginEx.address();
+    }
 
-        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
-        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildRouteExWithIpv6Address1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:5")
+                                     .port(8080)
+                                     .build();
     }
 }

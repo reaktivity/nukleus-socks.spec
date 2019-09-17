@@ -121,6 +121,10 @@ public final class SocksFunctions
             {
                 routeExRW.address(b -> b.domainName(address));
             }
+            else
+            {
+                throw new IllegalArgumentException(address);
+            }
             return this;
         }
 
@@ -185,6 +189,10 @@ public final class SocksFunctions
             else if (DOMAIN_NAME_MATCHER.get().reset(address).matches())
             {
                 beginExRW.address(b -> b.domainName(address));
+            }
+            else
+            {
+                throw new IllegalArgumentException(address);
             }
             return this;
         }
