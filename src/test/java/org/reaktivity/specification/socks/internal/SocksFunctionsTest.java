@@ -86,9 +86,9 @@ public class SocksFunctionsTest
     public void shouldBuildRouteExWithDomainName1() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-            .address("www.example.com")
-            .port(8080)
-            .build();
+                                     .address("www.example.com")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -115,10 +115,10 @@ public class SocksFunctionsTest
     public void shouldBuildBeginExWithDomainName1() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("example")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("example")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
@@ -150,9 +150,9 @@ public class SocksFunctionsTest
     public void shouldNotBuildRouteExWithInvalidIpv4Address() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-            .address("127.0.0.1001")
-            .port(8080)
-            .build();
+                                     .address("127.0.0.1001")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
@@ -194,7 +194,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
             copyOfRange(ipv6Address.buffer().byteArray(),
@@ -230,7 +230,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700034", 16).toByteArray(),
                           copyOfRange(ipv6Address.buffer().byteArray(),
@@ -250,7 +250,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010000000000000000000000007334", 16).toByteArray(),
                           copyOfRange(ipv6Address.buffer().byteArray(),
@@ -270,7 +270,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a1000000008a2e03707334", 16).toByteArray(),
                           copyOfRange(ipv6Address.buffer().byteArray(),
@@ -290,7 +290,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700000", 16).toByteArray(),
             copyOfRange(ipv6Address.buffer().byteArray(),
@@ -311,7 +311,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[] { 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8 },
             copyOfRange(ipv6Address.buffer().byteArray(),
@@ -331,7 +331,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[] { 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4 },
                          copyOfRange(ipv6Address.buffer().byteArray(),
@@ -351,7 +351,7 @@ public class SocksFunctionsTest
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, routeEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[16],
                           copyOfRange(ipv6Address.buffer().byteArray(),
