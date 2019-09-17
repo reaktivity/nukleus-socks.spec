@@ -372,7 +372,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
                           copyOfRange(ipv6Address.buffer().byteArray(),
@@ -393,7 +393,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03700034", 16).toByteArray(),
                           copyOfRange(ipv6Address.buffer().byteArray(),
@@ -414,7 +414,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010db885a3000000008a2e03707334", 16).toByteArray(),
                          copyOfRange(ipv6Address.buffer().byteArray(),
@@ -435,7 +435,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new BigInteger("20010000000000000000000000007334", 16).toByteArray(),
                          copyOfRange(ipv6Address.buffer().byteArray(),
@@ -498,7 +498,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[16],
                          copyOfRange(ipv6Address.buffer().byteArray(),
