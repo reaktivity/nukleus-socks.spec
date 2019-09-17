@@ -207,7 +207,6 @@ public final class SocksFunctions
 
     public static class Mapper extends FunctionMapperSpi.Reflective
     {
-
         public Mapper()
         {
             super(SocksFunctions.class);

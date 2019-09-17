@@ -187,10 +187,10 @@ public class SocksFunctionsTest
     public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("127.0.0.1.1")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("127.0.0.1.1")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
