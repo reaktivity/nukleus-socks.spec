@@ -339,7 +339,6 @@ public class SocksFunctionsTest
                                      .address("::2:3:4:5:6:7:8")
                                      .port(8080)
                                      .build();
-
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = routeEx.address();
