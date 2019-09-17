@@ -109,8 +109,8 @@ public final class SocksFunctions
                 encodeStandardIpv6AddressBytes(ipv6Matcher, addressBytes);
                 routeExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
-            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
-                IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
+            else if (IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches() &&
+                IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
@@ -178,8 +178,8 @@ public final class SocksFunctions
                 encodeStandardIpv6AddressBytes(ipv6Matcher, addressBytes);
                 beginExRW.address(b -> b.ipv6Address(s -> s.set(addressBytes)));
             }
-            else if (IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches() &&
-                IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches())
+            else if (IPV6_HEX_COMPRESSED_MATCHER.get().reset(address).matches() &&
+                IPV6_HEX_COMPRESSED_VALIDATE_MATCHER.get().reset(address).matches())
             {
                 final byte[] addressBytes = IPV6_ADDRESS_BYTES.get();
                 final Matcher ipv6Matcher = IPV6_HEX_COMPRESSED_MATCHER.get();
