@@ -555,10 +555,10 @@ public class SocksFunctionsTest
     public void shouldNotBuildBeginExWithInvalidIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("::73344")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("::73344")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
@@ -572,10 +572,10 @@ public class SocksFunctionsTest
     public void shouldNotBuildBeginExWithInvalidIpv6Address1() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
-            .typeId(0)
-            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
-            .port(8080)
-            .build();
+                                     .typeId(0)
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
+                                     .port(8080)
+                                     .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
