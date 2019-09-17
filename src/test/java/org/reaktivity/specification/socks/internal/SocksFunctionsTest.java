@@ -220,6 +220,22 @@ public class SocksFunctionsTest
     }
 
     @Test
+    public void shouldNotBuildRouteExWithIpv6Address1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:5")
+                                     .port(8080)
+                                     .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = routeEx.address();
+
+        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
+        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
+        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
+    }
+
+    @Test
     public void shouldBuildRouteExWithIpv6AddressLeadingZeros() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
@@ -525,6 +541,23 @@ public class SocksFunctionsTest
         byte[] bytes = SocksFunctions.beginEx()
             .typeId(0)
             .address("::73344")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = beginEx.address();
+
+        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
+        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
+        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
+    }
+
+    @Test
+    public void shouldNotBuildBeginExWithInvalidIpv6Address1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+            .typeId(0)
+            .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
             .port(8080)
             .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
