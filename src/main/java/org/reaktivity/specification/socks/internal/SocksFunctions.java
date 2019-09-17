@@ -55,7 +55,7 @@ public final class SocksFunctions
                         "(?:(?:([0-9a-f]{1,4})\\:?)??)(?:(?:([0-9a-f]{1,4})\\:?)??)" +
                         "(?:(?:([0-9a-f]{1,4})?))");
     private static final Pattern DOMAIN_NAME_MATCH_PATTERN =
-        Pattern.compile("(([w]{3})(\\.))?(?:[a-z0-9]((?:[a-z0-9-]{0,61}[a-z0-9])?))(\\.)?([a-z0-9]{0,6})?");
+        Pattern.compile("^[a-zA-Z]([a-zA-Z0-9-\\.]{0,62}[a-zA-Z0-9])?$");
     private static final ThreadLocal<Matcher> IPV6_STD_ADDRESS_MATCHER =
         ThreadLocal.withInitial(() -> IPV6_STD_ADDRESS_PATTERN.matcher(""));
     private static final ThreadLocal<Matcher> IPV6_HEX_COMPRESSED_VALIDATE_MATCHER =
