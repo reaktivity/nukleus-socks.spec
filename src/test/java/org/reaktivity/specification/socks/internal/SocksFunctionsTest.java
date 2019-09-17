@@ -81,7 +81,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithDomainName1() throws Exception
+    public void shouldBuildRouteExWithSimpleDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("www.example.com")
@@ -110,7 +110,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithDomainName1() throws Exception
+    public void shouldBuildBeginExWithMidLevelDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -206,7 +206,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressZeroCompression1() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressSimpleZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001::7334")
@@ -226,7 +226,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressZeroCompression2() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressMiddleZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001:0db8:85a1::8a2e:0370:7334")
@@ -246,7 +246,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressZeroCompression3() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressEndZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001:0db8:85a3:0:0:8a2e:0370::")
@@ -266,7 +266,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressZeroCompression4() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressBeginZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("::2:3:4:5:6:7:8")
@@ -289,7 +289,7 @@ public class SocksFunctionsTest
     public void shouldBuildRouteExWithIpv6LoopbackAddress() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
-                                     .address("2::4")
+                                     .address("::4")
                                      .port(8080)
                                      .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
@@ -298,7 +298,7 @@ public class SocksFunctionsTest
 
         assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
-        assertArrayEquals(new byte[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+        assertArrayEquals(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
             copyOfRange(ipv6Address.buffer().byteArray(),
                 ipv6Address.offset(),
                 ipv6Address.limit()));
@@ -368,7 +368,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressZeroCompression1() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -389,7 +389,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressZeroCompression2() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressSimpleZeroCompression() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -410,7 +410,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressZeroCompression3() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressSimpleZeroCompressionLeadingZero() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -523,7 +523,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6Address() throws Exception
+    public void shouldNotBuildRouteExWithIpv6AddressWithLastGroupInvalidLength() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
@@ -532,7 +532,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6Address() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidLength() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -542,7 +542,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6Address1() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -552,16 +552,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6Address1() throws Exception
-    {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:5")
-                                     .port(8080)
-                                     .build();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6Address2() throws Exception
+    public void shouldNotBuildRouteExWithIpv6AddressWithInvalidLength() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("::73344")
