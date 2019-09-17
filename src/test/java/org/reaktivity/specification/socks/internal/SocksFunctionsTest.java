@@ -559,4 +559,13 @@ public class SocksFunctionsTest
                                      .port(8080)
                                      .build();
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBuildRouteExWithIpv6Address2() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+                                     .address("::73344")
+                                     .port(8080)
+                                     .build();
+    }
 }
