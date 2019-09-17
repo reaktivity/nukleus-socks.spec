@@ -184,6 +184,23 @@ public class SocksFunctionsTest
     }
 
     @Test
+    public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+            .typeId(0)
+            .address("127.0.0.1.1")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+        SocksAddressFW address = beginEx.address();
+
+        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
+        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
+        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
+    }
+
+    @Test
     public void shouldBuildRouteExWithIpv6Address() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
