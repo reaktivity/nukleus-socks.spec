@@ -18,12 +18,14 @@ package org.reaktivity.specification.socks.internal;
 import static java.util.Arrays.copyOfRange;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
 import static org.reaktivity.specification.socks.internal.SocksFunctions.parseByte;
 import static org.reaktivity.specification.socks.internal.SocksFunctions.parseShort;
-import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.*;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_DOMAIN_NAME;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV4_ADDRESS;
+import static org.reaktivity.specification.socks.internal.types.SocksAddressFW.KIND_IPV6_ADDRESS;
 
 import java.math.BigInteger;
 
@@ -81,6 +83,20 @@ public class SocksFunctionsTest
     }
 
     @Test
+    public void shouldBuildRouteExWithDomainName1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.routeEx()
+            .address("www.example.com")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksRouteExFW routeEx = new SocksRouteExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals("www.example.com", routeEx.address().domainName().asString());
+        assertEquals(8080, routeEx.port());
+    }
+
+    @Test
     public void shouldBuildBeginExWithDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
@@ -92,6 +108,21 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
 
         assertEquals("example.com", beginEx.address().domainName().asString());
+        assertEquals(8080, beginEx.port());
+    }
+
+    @Test
+    public void shouldBuildBeginExWithDomainName1() throws Exception
+    {
+        byte[] bytes = SocksFunctions.beginEx()
+            .typeId(0)
+            .address("example")
+            .port(8080)
+            .build();
+        DirectBuffer buffer = new UnsafeBuffer(bytes);
+        SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
+
+        assertEquals("example", beginEx.address().domainName().asString());
         assertEquals(8080, beginEx.port());
     }
 
@@ -425,7 +456,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4 },
                          copyOfRange(ipv6Address.buffer().byteArray(),
@@ -446,7 +477,7 @@ public class SocksFunctionsTest
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
+        assertEquals(KIND_IPV6_ADDRESS, address.kind());
         OctetsFW ipv6Address = address.ipv6Address();
         assertArrayEquals(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
                          copyOfRange(ipv6Address.buffer().byteArray(),
@@ -493,15 +524,15 @@ public class SocksFunctionsTest
     {
         byte[] bytes = SocksFunctions.beginEx()
             .typeId(0)
-            .address("2001:0db8:85a3:0000:0000:8a2e:0370:73344")
+            .address("::73344")
             .port(8080)
             .build();
         DirectBuffer buffer = new UnsafeBuffer(bytes);
         SocksBeginExFW beginEx = new SocksBeginExFW().wrap(buffer, 0, buffer.capacity());
         SocksAddressFW address = beginEx.address();
 
-        assertNotEquals(KIND_IPV6_ADDRESS, beginEx.address().kind());
-        assertNotEquals(KIND_IPV4_ADDRESS, beginEx.address().kind());
-        assertNotEquals(KIND_DOMAIN_NAME, beginEx.address().kind());
+        assertNotEquals(KIND_IPV6_ADDRESS, address.kind());
+        assertNotEquals(KIND_IPV4_ADDRESS, address.kind());
+        assertNotEquals(KIND_DOMAIN_NAME, address.kind());
     }
 }
