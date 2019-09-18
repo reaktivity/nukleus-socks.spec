@@ -206,7 +206,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressSimpleZeroCompression() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressMiddleCompressedInTwoGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001::7334")
@@ -226,7 +226,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressMiddleZeroCompression() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressMiddleCompressedInSixGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001:0db8:85a1::8a2e:0370:7334")
@@ -246,7 +246,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressEndZeroCompression() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressEndCompressedInSevenGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("2001:0db8:85a3:0:0:8a2e:0370::")
@@ -266,7 +266,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithIpv6AddressBeginZeroCompression() throws Exception
+    public void shouldBuildRouteExWithIpv6AddressStartCompressedInSevenGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("::2:3:4:5:6:7:8")
@@ -513,7 +513,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv4AddressWithExtraGroup() throws Exception
     {
         SocksFunctions.beginEx()
                       .typeId(0)
@@ -523,7 +523,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6AddressWithLastGroupInvalidLength() throws Exception
+    public void shouldNotBuildRouteExWithIpv6AddressWithExtraGroup() throws Exception
     {
         SocksFunctions.routeEx()
                       .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
@@ -542,7 +542,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidGroups() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithExtraGroup() throws Exception
     {
         SocksFunctions.beginEx()
                       .typeId(0)
@@ -552,7 +552,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6AddressWithInvalidLength() throws Exception
+    public void shouldNotBuildRouteExWithInvalidGroup() throws Exception
     {
         SocksFunctions.routeEx()
                       .address("::73344")
