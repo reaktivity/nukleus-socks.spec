@@ -81,7 +81,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildRouteExWithSimpleDomainName() throws Exception
+    public void shouldBuildRouteExWithAbsoluteDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.routeEx()
                                      .address("www.example.com")
@@ -110,7 +110,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithMidLevelDomainName() throws Exception
+    public void shouldBuildBeginExWithSimpleDomainName() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -487,76 +487,76 @@ public class SocksFunctionsTest
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildRouteExWithInvalidDomainName() throws Exception
     {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("-example.com")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.routeEx()
+                      .address("-example.com")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildBeginExWithInvalidDomainName() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx()
-                                     .typeId(0)
-                                     .address("-example.com")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.beginEx()
+                      .typeId(0)
+                      .address("-example.com")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildRouteExWithInvalidIpv4Address() throws Exception
     {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("127.0.0.1001")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.routeEx()
+                      .address("127.0.0.1001")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx()
-                                     .typeId(0)
-                                     .address("127.0.0.1.1")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.beginEx()
+                      .typeId(0)
+                      .address("127.0.0.1.1")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildRouteExWithIpv6AddressWithLastGroupInvalidLength() throws Exception
     {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.routeEx()
+                      .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidLength() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidGroup() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx()
-                                     .typeId(0)
-                                     .address("::73344")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.beginEx()
+                      .typeId(0)
+                      .address("::73344")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidGroups() throws Exception
     {
-        byte[] bytes = SocksFunctions.beginEx()
-                                     .typeId(0)
-                                     .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.beginEx()
+                      .typeId(0)
+                      .address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334")
+                      .port(8080)
+                      .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildRouteExWithIpv6AddressWithInvalidLength() throws Exception
     {
-        byte[] bytes = SocksFunctions.routeEx()
-                                     .address("::73344")
-                                     .port(8080)
-                                     .build();
+        SocksFunctions.routeEx()
+                      .address("::73344")
+                      .port(8080)
+                      .build();
     }
 }
