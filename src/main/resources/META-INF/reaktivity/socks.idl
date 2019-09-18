@@ -15,11 +15,18 @@
  */
 scope socks
 {
+    union SocksAddress switch (uint8)
+    {
+        case 1: octets[4] ipv4Address;
+        case 4: octets[16] ipv6Address;
+        case 3: string domainName;
+    }
+
     scope control
     {
         struct SocksRouteEx
         {
-            string address;
+            socks::SocksAddress address;
             uint16 port;
         }
     }
@@ -28,7 +35,7 @@ scope socks
     {
         struct SocksBeginEx extends core::stream::Extension
         {
-            string address;
+            socks::SocksAddress address;
             uint16 port;
         }
     }
