@@ -368,7 +368,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressZeroCompression() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressMiddleCompressedInSixGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -389,7 +389,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressSimpleZeroCompression() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressMiddleCompressedInTwoGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -410,7 +410,7 @@ public class SocksFunctionsTest
     }
 
     @Test
-    public void shouldBuildBeginExWithIpv6AddressSimpleZeroCompressionLeadingZero() throws Exception
+    public void shouldBuildBeginExWithIpv6AddressMiddleCompressedInTwoAbbreviatedGroups() throws Exception
     {
         byte[] bytes = SocksFunctions.beginEx()
                                      .typeId(0)
@@ -473,13 +473,13 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = AssertionError.class)
-    public void shouldNotParseByteInvalidLength() throws Exception
+    public void shouldNotParseByteWithInvalidLength() throws Exception
     {
         parseByte("00001", 10);
     }
 
     @Test(expected = AssertionError.class)
-    public void shouldNotParseShortInvalidLength() throws Exception
+    public void shouldNotParseShortWithInvalidLength() throws Exception
     {
         parseShort("00001", 10);
     }
@@ -513,7 +513,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv4AddressWithExtraGroup() throws Exception
+    public void shouldNotBuildBeginExWithInvalidIpv4Address() throws Exception
     {
         SocksFunctions.beginEx()
                       .typeId(0)
@@ -523,7 +523,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildRouteExWithIpv6AddressWithExtraGroup() throws Exception
+    public void shouldNotBuildRouteExWithExtraGroup() throws Exception
     {
         SocksFunctions.routeEx()
                       .address("2001:0db8:85a3:0000:0000:8a2e:0370:73345")
@@ -532,7 +532,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithInvalidGroup() throws Exception
+    public void shouldNotBuildBeginExWithInvalidGroup() throws Exception
     {
         SocksFunctions.beginEx()
                       .typeId(0)
@@ -542,7 +542,7 @@ public class SocksFunctionsTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildBeginExWithInvalidIpv6AddressWithExtraGroup() throws Exception
+    public void shouldNotBuildBeginExWithExtraGroup() throws Exception
     {
         SocksFunctions.beginEx()
                       .typeId(0)
