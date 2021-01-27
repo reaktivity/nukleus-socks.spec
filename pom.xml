@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-socks.spec</artifactId>
-  <version>develop-SNAPSHOT</version>
+  <version>0.13</version>
   <name>SOCKS Nukleus Specification</name>
   <description>SOCKS Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-socks.spec</url>
